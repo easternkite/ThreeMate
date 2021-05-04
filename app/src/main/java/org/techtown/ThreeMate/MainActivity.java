@@ -69,6 +69,10 @@ public class MainActivity extends Activity implements TextWatcher {
     private String name2;
     private String image;
 
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
