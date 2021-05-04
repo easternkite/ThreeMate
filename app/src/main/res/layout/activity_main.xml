@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    tools:context="org.techtown.capstonui.org.techtown.ThreeMate.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="96dp"
+            android:layout_height="119dp"
+
+            android:background="@drawable/mainmenu1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="96dp"
+            android:layout_height="119dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/mainmenu2" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="96dp"
+            android:layout_height="119dp"
+
+            android:layout_marginTop="20dp"
+            android:background="@drawable/mainmenu3" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="96dp"
+            android:layout_height="119dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/mainmenu4" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="48dp"
+        android:layout_height="57dp"
+        android:background="@drawable/mainmenu5"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
+</LinearLayout>

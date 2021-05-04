@@ -1,0 +1,1151 @@
+{
+  "음식": [
+    {
+      "name" : "김치찌개",
+      "name2" : "김치찌개",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/01/05/09/18/food-1954424_960_720.png"
+    },
+    {
+      "name" : "떡볶이",
+      "name2" : "떡볶이",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/09/10/14/23/toppokki-2735719_960_720.jpg"
+    },
+    {
+      "name" : "짜장면",
+      "name2" : "짜장면",
+      "food" : "중식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/12/04/15/20/chinese-3855829_960_720.jpg"
+    },
+    {
+      "name" : "스파게티",
+      "name2" : "스파게티",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2012/02/26/10/51/beef-17040_640.jpg"
+    },
+    {
+      "name" : "오므라이스",
+      "name2" : "오므라이스",
+      "food" : "기타",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/10/23/05/40/restaurant-1762236_960_720.jpg"
+    },
+    {
+      "name" : "양념치킨",
+      "name2" : "양념치킨",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/06/26/13/58/chicken-2443901_960_720.jpg"
+    },
+    {
+      "name" : "피자",
+      "name2" : "피자",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/02/15/10/57/pizza-2068272_960_720.jpg"
+    },
+    {
+      "name" : "족발",
+      "name2" : "족발(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/10/22/14/13/food-1001256_960_720.jpg"
+    },
+    {
+      "name" : "비빔국수",
+      "name2" : "비빔국수",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/06/12/14/57/bibim-guksu-2395808_960_720.jpg"
+    },
+    {
+      "name" : "라면",
+      "name2" : "라면",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/09/23/08/11/if-the-953110_960_720.jpg"
+    },
+    {
+      "name" : "후라이드치킨",
+      "name2" : "통닭,튀김것",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/01/24/04/05/fried-chicken-250863_960_720.jpg"
+    },
+    {
+      "name" : "삽겹살",
+      "name2" : "삼겹살,구운것",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/03/28/10/04/pork-1285325_960_720.jpg"
+    },
+    {
+      "name" : "탕수육",
+      "name2" : "탕수육(강원도)",
+      "food" : "중식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/04/26/08/01/food-3351333_960_720.jpg"
+    },
+    {
+      "name" : "비빔밥",
+      "name2" : "비빔밥(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/10/13/19/15/bibimbap-1738580_960_720.jpg"
+    },
+    {
+      "name" : "제육덮밥",
+      "name2" : "제육덮밥(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/04/06/14/11/lunch-709423_960_720.jpg"
+    },
+    {
+      "name" : "안동찜닭",
+      "name2" : "안동찜닭",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/10/11/10/05/meal-5645374_960_720.jpg"
+    },
+    {
+      "name" : "떡만둣국",
+      "name2" : "떡만둣국(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/02/26/09/51/rice-cake-soup-650068_960_720.jpg"
+    },
+    {
+      "name" : "고등어구이",
+      "name2" : "고등어구이",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://i.ytimg.com/vi/rZRpXO76CsM/maxresdefault.jpg"
+    },
+    {
+      "name" : "쌀국수",
+      "name2" : "쌀국수",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/06/02/12/20/soup-5250765_960_720.jpg"
+    },
+    {
+      "name" : "돼지갈비",
+      "name2" : "돼지갈비구이(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2019/11/21/18/28/garlic-ribs-4643142_960_720.jpg"
+    },
+    {
+      "name" : "소곱창구이",
+      "name2" : "소곱창구이",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/04/22/06/57/gopchang-734303_960_720.jpg"
+    },
+    {
+      "name" : "닭볶음탕",
+      "name2" : "닭볶음탕",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/11/22/03/19/chicken-1848280_960_720.jpg"
+    },
+    {
+      "name" : "삼계탕",
+      "name2" : "삼계탕(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/05/21/08/07/samgyetang-5199668_960_720.jpg"
+    },
+    {
+      "name" : "메밀소바",
+      "name2" : "메밀소바",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/10/27/12/19/chopsticks-1008868_960_720.jpg"
+    },
+    {
+      "name" : "연어초밥",
+      "name2" : "연어초밥",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2010/12/13/10/25/canape-2802_960_720.jpg"
+    },
+    {
+      "name" : "토스트",
+      "name2" : "토스트",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/12/05/11/04/toast-1077984_960_720.jpg"
+    },
+    {
+      "name" : "불고기버거",
+      "name2" : "햄버거,싱글즈불고기버거",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg"
+    },
+    {
+      "name" : "우동",
+      "name2" : "우동",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/05/13/00/41/udon-noodles-1389048_960_720.jpg"
+    },
+    {
+      "name" : "삼선볶음밥",
+      "name2" : "삼선볶음밥",
+      "food" : "중식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/08/22/14/49/fried-rice-5508576_960_720.jpg"
+    },
+    {
+      "name" : "짬뽕",
+      "name2" : "짬뽕(강원도)",
+      "food" : "중식",
+      "type" : "면",
+      "hot" : "맵다",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/12/03/01/04/spicy-seafood-3852529_960_720.jpg"
+    },
+    {
+      "name" : "고기만두",
+      "name2" : "고기만두(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안맵다",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/02/08/04/49/dumplings-2047770_960_720.jpg"
+    },
+    {
+      "name" : "돈가스",
+      "name2" : "등심돈가스(충청도)",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/12/21/11/38/money-is-3887745_960_720.jpg"
+    },
+    {
+      "name" : "고로케",
+      "name2" : "고로케",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/10/24/16/31/croquette-5681992_960_720.jpg"
+    },
+    {
+      "name" : "계란찜",
+      "name2" : "달걀찜",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/04/07/03/21/food-3297633_960_720.jpg"
+    },
+    {
+      "name" : "소갈비찜",
+      "name2" : "소갈비찜(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/03/24/07/06/galbijjim-687170_960_720.jpg"
+    },
+    {
+      "name" : "떡갈비",
+      "name2" : "떡갈비(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/05/03/13/51/korean-tteokgalbi-751205_960_720.jpg"
+    },
+
+    {
+      "name" : "냉면",
+      "name2" : "물냉면(충청도)",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/04/07/03/22/food-3297635_960_720.jpg"
+    },
+    {
+      "name" : "잔치국수",
+      "name2" : "잔치국수(충청도)",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/03/25/02/26/noodles-688436_960_720.jpg"
+    },
+    {
+      "name" : "콩국수",
+      "name2" : "콩국수(충청도)",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/11/11/10/50/noodles-1816375_960_720.jpg"
+    },
+    {
+      "name" : "콩나물국밥",
+      "name2" : "콩나물국밥(전주)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/09/25/04/43/sprouts-460010_960_720.jpg"
+    },
+    {
+      "name" : "감자탕",
+      "name2" : "감자탕(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/07/08/19/40/food-836806_960_720.jpg"
+    },
+    {
+      "name" : "수프",
+      "name2" : "스프,야채수프",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/01/24/20/30/soup-2006317_960_720.jpg"
+    },
+    {
+      "name" : "카레라이스",
+      "name2" : "카레라이스(충청도)",
+      "food" : "기타",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/10/01/14/29/curry-967086_960_720.jpg"
+    },
+    {
+      "name" : "우동",
+      "name2" : "우동(일식)",
+      "food" : "기타",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/01/03/14/04/udon-noodles-4738229_960_720.jpg"
+    },
+    {
+      "name" : "육개장",
+      "name2" : "소고기육개장(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/09/04/11/05/broiler-market-2713540_960_720.jpg"
+    },
+    {
+      "name" : "추어탕",
+      "name2" : "추어탕(충청도)",
+      "food" : "밥 or 찌개",
+      "type" : "한식",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/06/30/17/27/chueotang-380562_960_720.jpg"
+    },
+    {
+      "name" : "월남쌈",
+      "name2" : "새우롤,월남쌈",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/01/06/03/46/vietnam-1956967_960_720.jpg"
+    },
+    {
+      "name" : "샤브샤브",
+      "name2" : "소고기샤브샤브",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/04/20/03/22/japanese-2244397_960_720.jpg"
+    },
+    {
+      "name" : "부대찌개",
+      "name2" : "부대찌개(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/01/12/03/28/food-3077481_960_720.jpg"
+    },
+    {
+      "name" : "김밥",
+      "name2" : "김밥(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/08/08/09/44/food-photography-2610864_960_720.jpg"
+    },
+    {
+      "name" : "김치전",
+      "name2" : "김치전(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/02/26/09/03/gimchijeon-274924_960_720.jpg"
+    },
+    {
+      "name" : "파전",
+      "name2" : "파전(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/02/08/03/56/file-version-4829032_960_720.jpg"
+    },
+    {
+      "name" : "닭갈비",
+      "name2" : "닭갈비(춘천)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/02/17/04/15/cooking-4855374_960_720.jpg"
+    },
+    {
+      "name" : "주꾸미 볶음",
+      "name2" : "주꾸미볶음(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/04/14/22/20/stock-image-5044542_960_720.jpg"
+    },
+    {
+      "name" : "육회",
+      "name2" : "육회(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/01/13/06/46/meat-597952_960_720.jpg"
+    },
+    {
+      "name" : "물회",
+      "name2" : "물회(포항)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2020/07/27/04/43/food-5441353_960_720.jpg"
+    },
+    {
+      "name" : "광어 매운탕",
+      "name2" : "광어매운탕(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/07/19/03/14/lures-and-buy-new-desktop-2517767_960_720.jpg"
+    },
+    {
+      "name" : "대구 매운탕",
+      "name2" : "대구매운탕(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/09/04/11/03/catfish-2713534_960_720.jpg"
+    },
+    {
+      "name" : "바지락 조개국",
+      "name2" : "바지락조개국",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/03/17/18/48/mussels-in-bath-678142_960_720.jpg"
+    },
+    {
+      "name" : "오코노미야끼",
+      "name2" : "오코노미야끼",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.crowdpic.net/detail-thumb/thumb_d_78A942FB57D34BEFB226BA24582065F2.jpg"
+    },
+    {
+      "name" : "크림파스타",
+      "name2" : "크림소스스파게티(충청도)",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/10/26/12/03/pasta-503773_960_720.jpg"
+    },
+    {
+      "name" : "두부전골",
+      "name2" : "두부전골(찌개)",
+      "food" : "기타",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/04/20/03/22/japanese-2244397_960_720.jpg"
+    },
+    {
+      "name" : "생선까스",
+      "name2" : "생선까스(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.crowdpic.net/detail-thumb/thumb_d_263AD73AB2871FE3F70B0268EE86F3CD.jpg"
+    },
+    {
+      "name" : "회덮밥",
+      "name2" : "회덮밥(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/04/28/07/00/food-1358238_960_720.jpg"
+    },
+    {
+      "name" : "김치볶음밥",
+      "name2" : "김치볶음밥(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2014/01/09/10/14/kimchi-fried-rice-241051_960_720.jpg"
+    },
+    {
+      "name" : "잡채",
+      "name2" : "잡채(충청도)",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/08/05/13/14/chop-suey-876506_960_720.jpg"
+    },
+    {
+      "name" : "마파두부",
+      "name2" : "마파두부(충청도)",
+      "food" : "중식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2017/08/02/06/51/mapo-tofu-2570173_960_720.jpg"
+    },
+    {
+      "name" : "골뱅이무침",
+      "name2" : "골뱅이무침(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/04/27/14/55/golbaengi-muchim-742078_960_720.jpg"
+    },
+    {
+      "name" : "알밥",
+      "name2" : "알밥(충청도)",
+      "food" : "한식",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2019/09/30/03/07/al-rice-4514717_960_720.jpg"
+    },
+    {
+      "name" : "수제비",
+      "name2" : "수제비(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/04/16/17/53/sujebi-726026_960_720.jpg"
+    },
+    {
+      "name" : "버섯 리조또",
+      "name2" : "버섯리조또",
+      "food" : "기타",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2019/09/06/19/29/rice-4457143_960_720.jpg"
+    },
+    {
+      "name" : "해물 리조또",
+      "name2" : "맛있는오뚜기밥해물리조또",
+      "food" : "기타",
+      "type" : "밥 or 찌개",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/09/29/17/52/risotto-frutti-di-mare-3711871_960_720.jpg"
+    },
+    {
+      "name" : "필라프",
+      "name2" : "필라프",
+      "food" : "기타",
+      "type" : "밥 or 찌개",
+      "hot" : "매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2018/05/18/00/25/pilaf-3410090_960_720.jpg"
+    },
+    {
+      "name" : "함박 스테이크",
+      "name2" : "햄버그스테이크(충청도)",
+      "food" : "한식",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/12/22/05/34/tteokgalbi-1103655_960_720.jpg"
+    },
+    {
+      "name" : "막국수",
+      "name2" : "막국수(강원도)",
+      "food" : "한식",
+      "type" : "면",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2019/09/30/03/07/buckwheat-subtitles-chinese-4514719_960_720.jpg"
+    },
+    {
+      "name" : "라볶이",
+      "name2" : "라볶이(경기도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/08/14/01/40/rabokyi-1591940_960_720.jpg"
+    },
+    {
+      "name" : "낙지볶음",
+      "name2" : "낙지볶음(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/08/25/02/46/cooking-1618603_960_720.jpg"
+    },
+    {
+      "name" : "훈제오리",
+      "name2" : "훈제오리(충청도)",
+      "food" : "헌삭",
+      "type" : "육류",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/12/27/09/17/duck-meat-1933542_960_720.jpg"
+    },
+    {
+      "name" : "수육",
+      "name2" : "돼지고기수육(충청도)",
+      "food" : "한식",
+      "type" : "욱루",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/05/02/00/56/bossam-749357_960_720.jpg"
+    },
+    {
+      "name" : "양념장어구이",
+      "name2" : "양념장어구이(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "안짜다",
+      "image":"https://cdn.pixabay.com/photo/2015/06/14/09/55/eels-808727_960_720.jpg"
+    },
+    {
+      "name" : "간장게장",
+      "name2" : "간장게장(충청도)",
+      "food" : "한식",
+      "type" : "기타",
+      "hot" : "안매움",
+      "solt" : "짜다",
+      "image":"https://cdn.pixabay.com/photo/2016/07/19/06/14/soy-crab-1527601_960_720.jpg"
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    },
+    {
+      "name" : "",
+      "name2" : "",
+      "food" : "",
+      "type" : "",
+      "hot" : "",
+      "solt" : "",
+      "image":""
+    }
+  ],
+
+
+
+  "질문": [
+    {
+      "question" : "어떤 음식이 좋으신가요?",
+      "answers" : ["한식","중식","기타"]
+    },
+    {
+      "question" : "어떤 종류의 음식을 좋아하시나요?",
+      "answers" : ["밥 or 찌개","면","육류", "기타"]
+    },
+    {
+      "question" : "어느정도 매움을 좋아하시나요?",
+      "answers" : ["매움","안매움"]
+    },
+    {
+      "question" : "어느정도의 짠맛을 좋아하시나요?",
+      "answers" : ["짜다","안짜다"]
+    }
+  ]
+}

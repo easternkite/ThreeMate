@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.techtown.ThreeMate.MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/my_orange"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/main_button"
+                android:layout_width="73dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/mainbtn"
+                android:text=""
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="150dp"
+                android:layout_height="39dp"
+
+                android:background="@color/my_orange"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/date"
+                android:textColor="#fff"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/DateUp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints=""
+                android:inputType="date"
+                tools:ignore="LabelFor" />
+
+            <Button
+                android:id="@+id/DateUp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/rounded_rec_clicked"
+                android:text="@string/btnNext"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <Button
+                android:id="@+id/DateDown"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_rec_clicked"
+                android:fontFamily="sans-serif"
+                android:text="@string/btn_previous"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/low_light_gray">
+
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_alignBottom="@+id/calorie_break_down"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginBottom="171dp"
+                    android:background="@drawable/plus"
+                    android:text=""
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_upload2"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_alignBottom="@+id/calorie_break_down"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="67dp"
+                    android:layout_marginBottom="170dp"
+                    android:background="@drawable/minus"
+                    android:text=""
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/center_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/calories_remaining_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/_0_kcal"
+                    android:textColor="@color/my_green"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/calories_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/calories_remaining_number"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/KCAL_SUM"
+                    android:textColor="#FFAAAAAA"
+                    android:textSize="12sp" />
+
+                <View
+                    android:id="@+id/gap_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/calories_remaining" />
+
+                <TableLayout
+                    android:id="@+id/calorie_break_down"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gap_view"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/calorie_rec"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp">
+
+                    <TableRow
+                        android:divider="@drawable/table_divider"
+                        android:showDividers="middle">
+
+                        <EditText
+                            android:id="@+id/edit_name"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:autofillHints=""
+                            android:inputType="text"
+                            android:textColor="@color/text_gray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor" />
+
+                        <EditText
+                            android:id="@+id/edit_kcal"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:textColor="@color/text_gray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor"
+                            android:autofillHints="" />
+                    </TableRow>
+
+                    <TableRow
+                        android:divider="@drawable/table_divider"
+                        android:showDividers="middle">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="@string/foodName"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="@string/KCal"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:divider="@drawable/table_divider"
+                        android:showDividers="middle">
+
+                        <EditText
+                            android:id="@+id/edit_carbs"
+                            android:layout_weight="1"
+                            android:autofillHints=""
+                            android:inputType="number"
+                            android:textColor="@color/text_gray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor" />
+
+                        <EditText
+                            android:id="@+id/edit_protein"
+                            android:layout_weight="1"
+                            android:autofillHints=""
+                            android:inputType="number"
+                            android:textColor="@color/text_gray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor" />
+
+                        <EditText
+                            android:id="@+id/edit_fat"
+                            android:layout_weight="1"
+                            android:autofillHints=""
+                            android:inputType="number"
+                            android:textColor="@color/text_gray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="LabelFor" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:divider="@drawable/table_divider"
+                        android:showDividers="middle">
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="@string/Tan"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="@string/Dan"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:text="@string/Ji"
+                            android:textColor="@color/text_gray"
+                            android:textSize="12sp"
+                            android:layout_marginStart="8dp"/>
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/calorie_break_down"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/my_orange"
+                    android:gravity="center_vertical"
+                    android:text="@string/MOA"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"/>
+
+                <TableLayout
+                    android:id="@+id/nutritionTableFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/summary" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="141dp"
+        android:visibility="gone">
+
+    </ListView>
+</LinearLayout>

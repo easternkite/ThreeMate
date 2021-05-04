@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.techtown.ThreeMate.MainActivity"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/my_orange"
+        android:gravity="center"
+        android:text="질문"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/question_img"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/undraw_cooking"></ImageView>
+
+    <TextView
+        android:id="@+id/txt_question"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="질문"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <ListView
+        android:layout_marginTop="25dp"
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:textSize="16sp">
+
+    </ListView>
+</LinearLayout>
+
+<!-- android:background="@drawable/rounded_rec2"-->
