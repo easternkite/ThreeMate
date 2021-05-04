@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 
@@ -43,7 +46,7 @@ public class MainActivity extends Activity implements TextWatcher {
     //스무고개, 다이어리, 지도, 룰렛 버튼
     //private AutoCompleteTextView autoComplete;
     private TextView hidden;
-
+    private DatabaseReference mDatabese;
     private ArrayList<String> foodOneTime = new ArrayList<String>();
 
     private TextView tv;
@@ -71,7 +74,13 @@ public class MainActivity extends Activity implements TextWatcher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        mDatabese = FirebaseDatabase.getInstance().getReference();
         gpsTracker = new GpsTracker(MainActivity.this);
+
+
+
+
 
         final double latitude = gpsTracker.getLatitude();
         final double longitude = gpsTracker.getLongitude();
