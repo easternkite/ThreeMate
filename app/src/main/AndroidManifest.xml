@@ -48,6 +48,9 @@
             android:name=".Roulette"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Roulette2"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
