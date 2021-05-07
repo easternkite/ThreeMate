@@ -27,7 +27,7 @@ import rubikstudio.library.model.LuckyItem;
 
 public class Roulette2 extends AppCompatActivity {
     List<LuckyItem> data = new ArrayList<>();
-
+    private int sequenceNum = 0;
 
     //
     private static final String TAG_TEXT = "text";
@@ -102,8 +102,16 @@ public class Roulette2 extends AppCompatActivity {
                 String str = new String(String.valueOf(text[position])); // text[position]를 가져오셔야죠!!!ㅋㅋㅋㅋ
 
                 LuckyItem luckyItem1 = new LuckyItem();
+
                 luckyItem1.topText = str;
-                luckyItem1.color = 0xffFFD399;
+
+                /** 색 교차 구현 **/
+                if (sequenceNum % 2 == 0){
+                    luckyItem1.color = 0xffFFD399;
+                }else{
+                    luckyItem1.color = 0xffFFBB61;
+                }
+                sequenceNum += 1;
                 data.add(luckyItem1);
 
                 luckyWheelView.setData(data);
