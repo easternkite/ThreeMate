@@ -19,11 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +43,6 @@ public class MainActivity extends Activity implements TextWatcher {
     //스무고개, 다이어리, 지도, 룰렛 버튼
     //private AutoCompleteTextView autoComplete;
     private TextView hidden;
-    private DatabaseReference mDatabese;
     private ArrayList<String> foodOneTime = new ArrayList<String>();
 
     private TextView tv;
@@ -70,8 +65,6 @@ public class MainActivity extends Activity implements TextWatcher {
     private String name2;
     private String image;
 
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
 
 
     @Override
@@ -80,7 +73,6 @@ public class MainActivity extends Activity implements TextWatcher {
         setContentView(R.layout.activity_main);
 
 
-        mDatabese = FirebaseDatabase.getInstance().getReference();
         gpsTracker = new GpsTracker(MainActivity.this);
 
 
@@ -92,7 +84,6 @@ public class MainActivity extends Activity implements TextWatcher {
 
         String address = getCurrentAddress(latitude, longitude);
 
-        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(String.valueOf(latitude)), Double.parseDouble(String.valueOf(longitude)));
 
 
 
@@ -541,5 +532,6 @@ public class MainActivity extends Activity implements TextWatcher {
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
      */
+
 
 }

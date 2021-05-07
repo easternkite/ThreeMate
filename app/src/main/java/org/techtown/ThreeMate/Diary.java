@@ -1,9 +1,13 @@
 package org.techtown.ThreeMate;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +34,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,12 +50,25 @@ import java.util.List;
 import java.util.Locale;
 
 public class Diary extends AppCompatActivity {
+    private Drawable drawable;
+    private static final int REQUEST_CODE = 0;
+    private String TAG = "Lee";
     final AnimationSet set = new AnimationSet(true);
     private TextView resultText;
     private Button btn_upload;// 업로드버튼
     private EditText edit_name, edit_kcal, edit_carbs, edit_protein, edit_fat;       // 입력받을 폼 3개(음식이름, 음식칼로리, 날짜)
                       // SQLite Class 관리용 객체
     private EditText textView;
+    private EditText edit_attach;
+    private String  imageUrl = "";
+    boolean isPhotoCaptured;
+    boolean isPhotoFileSaved;
+    boolean isPhotoCanceled;
+    private ImageView pictureImageView;
+    int selectedPhotoMenu;
+
+    File file;
+    Bitmap resultPhotoBitmap;
     private String myFormat = "yyyy-MM-dd";    // 출력형식   2018/11/28
     private SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
     private ListView listView;// DB에 저장된 내용을 보여주기위한 리스트뷰
@@ -98,7 +121,7 @@ public class Diary extends AppCompatActivity {
         setContentView(R.layout.diary);
 
 
-
+        pictureImageView = findViewById(R.id.pictureImageView);
 
         Intent secondIntent = getIntent();
         String name = secondIntent.getStringExtra("name");
@@ -106,9 +129,11 @@ public class Diary extends AppCompatActivity {
         String carbs = secondIntent.getStringExtra("carbs");
         String protein = secondIntent.getStringExtra("protein");
         String fat = secondIntent.getStringExtra("fat");
-        int num = secondIntent.getIntExtra("num", 0);
+        final int num = secondIntent.getIntExtra("num", 0);
         final int ACode = secondIntent.getIntExtra("ACode", 0);
         final String[] url = {secondIntent.getStringExtra("url")};
+
+
         if(num == 1){
             AlertDialog.Builder builder = new AlertDialog.Builder(Diary.this);
             builder.setCancelable(false);
@@ -128,6 +153,7 @@ public class Diary extends AppCompatActivity {
             builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+
                     sqLiteManager.insert(
                             edit_name.getText().toString(),
                             edit_kcal.getText().toString(),
@@ -147,6 +173,9 @@ public class Diary extends AppCompatActivity {
                     edit_protein.setText(null);
                     edit_fat.setText(null);
                     url[0] = null;
+                    imageUrl = null;
+                    drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
+                    pictureImageView.setImageDrawable(drawable);
                     LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
                     recyclerView.setLayoutAnimation(controller);
                 }
@@ -319,7 +348,7 @@ public class Diary extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView);
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "NewDiary2.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "NewDiary2021.db", null, 1);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -336,6 +365,17 @@ public class Diary extends AppCompatActivity {
                         sqLiteManager.delete(idIndicator2.get(position));
                         Toast.makeText(getApplicationContext(),"["+matchdate.get(position)+"]"+matchfood.get(position)+" 쓱싹쓱싹!",Toast.LENGTH_LONG).show();
                         updateList();
+
+                        edit_name.setText(null);
+                        edit_kcal.setText(null);
+                        edit_carbs.setText(null);
+                        edit_protein.setText(null);
+                        edit_fat.setText(null);
+                        url[0] = null;
+                        edit_attach.setText(null);
+                        imageUrl = null;
+                        drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
+                        pictureImageView.setImageDrawable(drawable);
                         LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
                         recyclerView.setLayoutAnimation(controller);
 
@@ -353,6 +393,26 @@ public class Diary extends AppCompatActivity {
 
             }
         });
+
+        edit_attach = findViewById(R.id.edit_attach);
+        edit_attach.setFocusableInTouchMode(true);
+        edit_attach.setFocusable(false);
+        edit_attach.setClickable(true);
+        edit_attach.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    tedPermission();
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, REQUEST_CODE);
+
+                }
+                return false;
+            }
+        });
+
 
 
         Animation rtl = new TranslateAnimation(
@@ -415,6 +475,9 @@ public class Diary extends AppCompatActivity {
             if (edit_kcal.getText().toString().equals("")||edit_name.getText().toString().equals("")||edit_carbs.getText().toString().equals("")||edit_protein.getText().toString().equals("")||edit_fat.getText().toString().equals("")){
                 Toast.makeText(getApplicationContext(),"음식 정보를 입력하십시오.",Toast.LENGTH_LONG).show();
             }else{
+                if (imageUrl.length() >0){
+                    url[0] = imageUrl;
+                }
                 // EditText에 입력한 정보를 DB에 Insert.
                 sqLiteManager.insert(
                         edit_name.getText().toString(),
@@ -435,6 +498,10 @@ public class Diary extends AppCompatActivity {
                 edit_protein.setText(null);
                 edit_fat.setText(null);
                 url[0] = null;
+                edit_attach.setText(null);
+                imageUrl = null;
+                drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
+                pictureImageView.setImageDrawable(drawable);
                 LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
                 recyclerView.setLayoutAnimation(controller);
             }
@@ -477,6 +544,16 @@ public class Diary extends AppCompatActivity {
 
                         sqLiteManager.clear(date);
                         updateList();
+                        edit_name.setText(null);
+                        edit_kcal.setText(null);
+                        edit_carbs.setText(null);
+                        edit_protein.setText(null);
+                        edit_fat.setText(null);
+                        url[0] = null;
+                        edit_attach.setText(null);
+                        imageUrl = null;
+                        drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
+                        pictureImageView.setImageDrawable(drawable);
 
 
 
@@ -524,6 +601,26 @@ public class Diary extends AppCompatActivity {
                     startActivity(intent);
             }
         });
+    }
+
+    private void tedPermission() {
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                //권한요청성공
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                //권한 요청 실패
+            }
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage(getResources().getString(R.string.permission_2))
+                .setDeniedMessage(getResources().getString(R.string.permission_1))
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
     }
 
     private void updateList(){
@@ -588,6 +685,26 @@ public class Diary extends AppCompatActivity {
         textView.setText(sdf.format(myCalendar.getTime()));
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Uri uri = data.getData();
+                    Glide.with(getApplicationContext()).load(String.valueOf(uri)).into(pictureImageView);
+                    edit_attach.setText(String.valueOf("사진 첨부 완료!"));
+                    imageUrl = String.valueOf(uri) ;
+                } catch (Exception e) {
 
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+
+            }
+        }
     }
+
+
+
+}
 
