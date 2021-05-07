@@ -251,6 +251,16 @@ public class Roulette extends AppCompatActivity {
             }
         }
     });
+
+    //선택메뉴룰렛 화면 전환
+        Button sbtn = (Button)findViewById(R.id.smenu_btn);
+        sbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Roulette.this, Roulette2.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

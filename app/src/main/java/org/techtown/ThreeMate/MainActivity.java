@@ -41,8 +41,6 @@ import java.util.Locale;
 
 public class MainActivity extends Activity implements TextWatcher {
 
-    //아무주석
-
     private long backKeyPressedTime = 0;
     private Toast toast;
     private Button quizbtn, diarybtn, mapbtn, roulbtn;

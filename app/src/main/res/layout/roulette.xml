@@ -13,7 +13,16 @@
     tools:context="org.techtown.capstonui.org.techtown.ThreeMate.Roulette">
 
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <Button
+        android:id="@+id/smenu_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:background="@drawable/btn_design"
+        android:text="선택 메뉴 룰렛"
+        android:textColor="#FD9F28" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/swipe_refresh">
