@@ -1,6 +1,5 @@
 package org.techtown.ThreeMate;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -100,7 +99,7 @@ public class Roulette2 extends AppCompatActivity {
                 //
 
                 final LuckyWheelView luckyWheelView = (LuckyWheelView) findViewById(R.id.luckyWheel);
-                String str = new String(String.valueOf(text));
+                String str = new String(String.valueOf(text[position])); // text[position]를 가져오셔야죠!!!ㅋㅋㅋㅋ
 
                 LuckyItem luckyItem1 = new LuckyItem();
                 luckyItem1.topText = str;
