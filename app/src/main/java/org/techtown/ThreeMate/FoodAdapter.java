@@ -107,7 +107,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>
 
         public void setItem(FD fd) {
 
-            if (fd.getIcon().equals("null")){
+            if (fd.getIcon().equals("null") || fd.getIcon().equals("")){
                 Glide.with(itemView).load("https://cdn.pixabay.com/photo/2018/02/24/10/03/orange-3177693_960_720.png").override(300).into(iconImageView);
             }else {
                 Glide.with(itemView).load(fd.getIcon()).override(300).into(iconImageView);
