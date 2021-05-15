@@ -27,6 +27,7 @@ import rubikstudio.library.model.LuckyItem;
 
 public class Roulette2 extends AppCompatActivity {
     List<LuckyItem> data = new ArrayList<>();
+
     private int sequenceNum = 0;
 
     //
@@ -102,16 +103,93 @@ public class Roulette2 extends AppCompatActivity {
                 String str = new String(String.valueOf(text[position])); // text[position]를 가져오셔야죠!!!ㅋㅋㅋㅋ
 
                 LuckyItem luckyItem1 = new LuckyItem();
-
                 luckyItem1.topText = str;
 
                 /** 색 교차 구현 **/
-                if (sequenceNum % 2 == 0){
+                /*if (sequenceNum % 2 == 0&&sequenceNum % 3 == 1){
                     luckyItem1.color = 0xffFFD399;
-                }else{
+                }else if(sequenceNum % 3 == 0){
                     luckyItem1.color = 0xffFFBB61;
+                }else if(sequenceNum % 2 == 1||sequenceNum % 5 == 0||sequenceNum % 7 == 0){
+                    luckyItem1.color = 0xffFF8B61;
                 }
-                sequenceNum += 1;
+                sequenceNum += 1;*/
+
+                switch (sequenceNum+=1){
+                    case 1
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 2
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 3
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 4
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 5
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 6
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 7
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 8
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 9
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 10
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 11
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 12
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 13
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 14
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 15
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 16
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 17
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 18
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 19
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 20
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 21
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 22
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 23
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 24
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 25
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 26
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 27
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 28
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 29
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 30
+                            :luckyItem1.color = 0xffFF8B61; break;
+                    case 31
+                            :luckyItem1.color = 0xffFFD399; break;
+                    case 32
+                            :luckyItem1.color = 0xffFFBB61; break;
+                    case 33
+                            :luckyItem1.color = 0xffFF8B61; break;
+
+
+                }
+
+
+
+
+
                 data.add(luckyItem1);
 
                 luckyWheelView.setData(data);
