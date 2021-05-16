@@ -16,14 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity_new"
-            android:theme="@style/SplashTheme2">
-
+        <activity android:name=".Result" />
+        <activity android:name=".LoginActivity">
 
         </activity>
-        <activity android:name=".Result" />
-        <activity android:name=".LoginActivity"
-            android:theme="@style/SplashTheme2"></activity>
         <activity
             android:name=".RouletteActivity"
             android:screenOrientation="portrait" />
@@ -52,8 +48,7 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/black">
-
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
