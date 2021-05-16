@@ -80,7 +80,7 @@ public class ResultActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AnswerSetGetter.setClear();
-                Intent intent = new Intent(ResultActivity2.this, Roulette.class);
+                Intent intent = new Intent(ResultActivity2.this, RouletteActivity.class);
                 finish();
                 startActivity(intent);
 
@@ -332,7 +332,7 @@ public class ResultActivity2 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ResultActivity2.this, Roulette.class);
+        Intent intent = new Intent(ResultActivity2.this, RouletteActivity.class);
         finish();
         startActivity(intent);
     }

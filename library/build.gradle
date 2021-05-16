@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,6 +22,9 @@ android {
 
 dependencies {
     implementation 'androidx.core:core:1.1.0-alpha03'
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+
+    implementation 'com.google.firebase:firebase-auth:21.0.1' // 파이어베이스 인증
+    implementation 'com.firebaseui:firebase-ui-auth:4.2.1' // 파이어베이스 인증2
+
     testImplementation 'junit:junit:4.12'
 }

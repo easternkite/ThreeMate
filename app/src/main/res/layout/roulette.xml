@@ -10,17 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="org.techtown.capstonui.org.techtown.ThreeMate.Roulette">
+    tools:context="org.techtown.ThreeMate.Roulette">
 
-
-    <Button
-        android:id="@+id/smenu_btn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="280dp"
-        android:background="@drawable/btn_design"
-        android:text="선택 메뉴 룰렛"
-        android:textColor="#FD9F28" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
@@ -30,6 +21,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/smenu_btn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_design"
+            android:text="선택 메뉴 룰렛"
+            android:textColor="#FD9F28"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/info"
@@ -48,13 +52,12 @@
             android:layout_height="320dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="72dp"
             app:layout_constraintBottom_toTopOf="@+id/play"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info"
-            app:layout_constraintVertical_bias="0.816"
+            app:layout_constraintTop_toTopOf="@+id/info"
+            app:layout_constraintVertical_bias="0.814"
             app:lkwBackgroundColor="#FD9F28"
             app:lkwCenterImage="@drawable/wheel2_2"
             app:lkwCursor="@drawable/ic_cursor"

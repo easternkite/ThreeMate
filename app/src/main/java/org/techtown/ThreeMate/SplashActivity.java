@@ -54,13 +54,8 @@ public class SplashActivity extends Activity {
 
             if ( check_result ) {
                 Log.d("@@@", "start");
-                try{
 
-                    Thread.sleep(1000); //2.5초간 화면 표시
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, SplashActivity_new.class);
                 startActivity(intent);
                 finish();
                 //위치 값을 가져올 수 있음
@@ -74,13 +69,8 @@ public class SplashActivity extends Activity {
                     finish();
 
                 }else {
-                    try{
 
-                        Thread.sleep(1000); //1초간 화면 표시
-                    } catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, SplashActivity_new.class);
                     startActivity(intent);
 
                     Toast.makeText(SplashActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
@@ -100,13 +90,8 @@ public class SplashActivity extends Activity {
 
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED ) {
-            try{
 
-                Thread.sleep(1300); //2.5초간 화면 표시
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, SplashActivity_new.class);
             startActivity(intent);
             finish();
 

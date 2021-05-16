@@ -11,25 +11,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textview_alterdialog_title"
             android:layout_width="326dp"
             android:layout_height="44dp"
-            android:layout_margin="20dp"
             android:background="#FD9F28"
             android:gravity="center"
             android:text="원하는 메뉴를 선택하세요"
             android:textColor="#ffffff" />
 
         <ListView
+            android:id="@+id/listview_alterdialog_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null"
-            android:dividerHeight="10dp"
             android:background="#FFD399"
-            android:id="@+id/listview_alterdialog_list"/>
+            android:divider="@null"
+            android:dividerHeight="10dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
