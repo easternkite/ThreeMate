@@ -16,11 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RouletteActivity"
-            android:screenOrientation="portrait"
-            >
+        <activity android:name=".Result" />
+        <activity android:name=".LoginActivity">
 
         </activity>
+        <activity
+            android:name=".RouletteActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".TestActivity" />
         <activity
             android:name=".SearchActivity"
@@ -52,6 +54,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"

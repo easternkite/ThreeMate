@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "712968692883-7qea2v0p5bn6ivuh1ate3dan7o9f2bi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "self.peterbetos.luckywheel",
+            "certificate_hash": "ac33c0da1ddcba5dd7f75d1e689521bfe15ce940"
+          }
+        },
+        {
           "client_id": "712968692883-qn0emkh3rcqrb7s6pu8d39bdtooeg9s8.apps.googleusercontent.com",
           "client_type": 3
         }
