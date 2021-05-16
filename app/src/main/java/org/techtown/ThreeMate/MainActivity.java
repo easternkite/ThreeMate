@@ -302,7 +302,7 @@ public class MainActivity extends Activity implements TextWatcher {
             //룰렛 실행
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Roulette.class);
+                Intent intent = new Intent(MainActivity.this, RouletteActivity.class);
                 startActivity(intent);
 
             }

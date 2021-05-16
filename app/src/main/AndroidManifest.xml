@@ -5,13 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
     <application
-
         android:allowBackup="true"
         android:icon="@drawable/mainicon"
         android:label="@string/app_name"
@@ -19,9 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".RouletteActivity"
+            android:screenOrientation="portrait"
+            >
 
-
-
+        </activity>
         <activity android:name=".TestActivity" />
         <activity
             android:name=".SearchActivity"
@@ -45,12 +44,6 @@
             android:name=".MenuMap"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Roulette"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Roulette2"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
@@ -68,7 +61,5 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="93bcdf00e2835c6c5f62a2e2fba27fed" />
     </application>
-
-
 
 </manifest>
