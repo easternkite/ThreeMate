@@ -13,8 +13,18 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
-
-
     </style>
+
+
+
+<style name="SplashTheme2" parent="Theme.AppCompat.NoActionBar">
+<item name="android:windowTranslucentStatus">true</item>
+<item name="android:windowTranslucentNavigation">true</item>
+</style>
+
+
+<style name="black" parent="Theme.AppCompat.NoActionBar">
+<item name="android:windowBackground">#000</item>
+</style>
 
 </resources>

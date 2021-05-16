@@ -3,6 +3,11 @@ package org.techtown.ThreeMate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,12 +33,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton btn_google; // 구글 로그인 버튼
     private FirebaseAuth auth; // 파이어 베이스 인증 객체
     private FirebaseUser user;
+    private ImageView iv_mark;
     private GoogleApiClient googleApiClient; // 구글 API 클라이언트 객체
     private static final int REQ_SIGN_GOOGLE = 100; // 구글 로그인 결과 코드
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.alpha); //Context와 Animation xml파일
+        Animation animation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.upward); //Context와 Animation xml파일
+
+
+
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -43,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
+        iv_mark = findViewById(R.id.iv_mark);
 
         auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
         user = auth.getCurrentUser();
@@ -54,6 +70,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
+        animation.setFillEnabled(false);    //애니메이션 이 끝난곳에 고정할지 아닐지
+        btn_google.startAnimation(animation);    //애니메이션 시작
+
+        animation2.setFillEnabled(true);    //애니메이션 이 끝난곳에 고정할지 아닐지
+        iv_mark.startAnimation(animation2);    //애니메이션 시작
+
 
         if (user != null){
             Intent intent = new Intent(getApplicationContext(), Result.class);
