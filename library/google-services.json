@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:712968692883:android:cb9de49dc95c2ef8355966",
         "android_client_info": {
-          "package_name": "org.techtown.ThreeMate"
+          "package_name": "rubikstudio.library"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "712968692883-npd5b3et53k5bgd35ancdp99iii4d2jv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.techtown.ThreeMate",
+            "package_name": "rubikstudio.library",
             "certificate_hash": "ac33c0da1ddcba5dd7f75d1e689521bfe15ce940"
           }
         },

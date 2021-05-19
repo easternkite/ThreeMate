@@ -42,6 +42,7 @@ public class SplashActivity_new extends AppCompatActivity {
                     }
 
                     Intent intent2 = new Intent(SplashActivity_new.this, MainActivity.class);
+                    //로그인테스트 하려면 MainActivity -> LoginActivity 로 변경해주세요
                     startActivity(intent2);
                     //overridePendingTransition(0, 0); //액티비티 전환 모션 제거
                     finish();
