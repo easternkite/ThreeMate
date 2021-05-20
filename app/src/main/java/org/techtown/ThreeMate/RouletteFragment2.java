@@ -228,14 +228,14 @@ public class RouletteFragment2 extends Fragment {
         dialog.show();
 
         //랜덤메뉴룰렛 화면 전환
-        Button rbtn = (Button)getView().findViewById(R.id.rmenu_btn);
+        /* Button rbtn = (Button)getView().findViewById(R.id.rmenu_btn);
         rbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RouletteActivity.class);
                 startActivity(intent);
             }
-        });
+        }); */
     }
     //listView
 
