@@ -16,13 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity_new"
-            android:theme="@style/SplashTheme2">
-
-        </activity>
-        <activity android:name=".Result" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".SplashActivity_new"
             android:theme="@style/SplashTheme2"></activity>
+        <activity android:name=".Result" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/SplashTheme2" />
         <activity
             android:name=".RouletteActivity"
             android:screenOrientation="portrait" />
