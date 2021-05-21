@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         if (user != null){
-            Intent intent = new Intent(getApplicationContext(), Result.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("nickName",user.getDisplayName());
             intent.putExtra("photoUrl",String.valueOf(user.getPhotoUrl()));
 
@@ -111,8 +111,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) { // 로그인이 성공했으면...
+
+
                             Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Result.class);
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra("nickName",account.getGivenName());
                             intent.putExtra("photoUrl",String.valueOf(account.getPhotoUrl())); // String.valueOf() 특정 자료형을 String 형태로 변환.
                             startActivity(intent);

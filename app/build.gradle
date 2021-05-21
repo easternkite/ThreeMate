@@ -45,6 +45,9 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1' // 파이어베이스 인증2
 
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation "gun0912.ted:tedpermission:2.1.0"
     annotationProcessor 'io.realm:realm-android:0.82.2'

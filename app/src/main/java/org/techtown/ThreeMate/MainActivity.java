@@ -72,13 +72,13 @@ public class MainActivity extends Activity implements TextWatcher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CustomDialog customDialog = new CustomDialog(MainActivity.this);
-        customDialog.setCancelable(false);
-        //ustomDialog.show();
+
 
         gpsTracker = new GpsTracker(MainActivity.this);
 
-
+        CustomDialog customDialog = new CustomDialog(MainActivity.this);
+        customDialog.setCancelable(false);
+        customDialog.show();
 
 
 

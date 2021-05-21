@@ -24,7 +24,10 @@ dependencies {
     implementation 'androidx.core:core:1.1.0-alpha03'
 
     implementation 'com.google.firebase:firebase-auth:21.0.1' // 파이어베이스 인증
-    implementation 'com.firebaseui:firebase-ui-auth:4.2.1' // 파이어베이스 인증2
+    implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'// 파이어베이스 인증2
 
     testImplementation 'junit:junit:4.12'
 }
