@@ -19,7 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,9 +27,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    private SignInButton btn_google; // 구글 로그인 버튼
+    private GoogleSignInButton btn_google; // 구글 로그인 버튼
     private FirebaseAuth auth; // 파이어 베이스 인증 객체
     private FirebaseUser user;
     private ImageView iv_mark;
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         if(task.isSuccessful()) { // 로그인이 성공했으면...
 
 
-                            Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, account.getDisplayName()+"님, 환영합니다!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra("nickName",account.getGivenName());
                             intent.putExtra("photoUrl",String.valueOf(account.getPhotoUrl())); // String.valueOf() 특정 자료형을 String 형태로 변환.
