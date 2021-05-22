@@ -636,7 +636,8 @@ public class MainActivity extends Activity implements TextWatcher {
                             spy.add(userName);
                             age = String.valueOf(currentYear-Integer.valueOf(bornDate.substring(0,4)) + 1);
                             String bmi = String.format("%.2f" ,Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100))) ;
-                            String bmr = String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))));
+                            String bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
+                                    :String.format("%.2f",(665.1+(9.56*Double.valueOf(bodyWeight) )+(1.85*Double.valueOf(bodyLength)) - (4.68 * Double.valueOf(age))));
                             Log.d("Lee", bodyWeight+ String.valueOf((Double.valueOf(bodyLength)/10) *  (Double.valueOf(bodyLength)/10)) );
                             tv_userInfo.setText("   Age : " + age + " / BMI : " + bmi + " / BMR : " + bmr + "kcal" );
                             tv_nickname.setText(userName);

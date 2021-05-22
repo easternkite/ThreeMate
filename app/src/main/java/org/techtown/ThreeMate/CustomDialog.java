@@ -240,7 +240,8 @@ public class CustomDialog extends Dialog{
 
 
                     Intent intent = new Intent(context, MainActivity.class);
-                    context.startActivity(intent);
+                    ((Activity)context).startActivity(intent);
+                    ((Activity)context).overridePendingTransition(0, 0); //액티비티 전환 모션 제거
                     ((Activity)context).finish();
 
                     dismiss();
