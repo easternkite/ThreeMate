@@ -17,7 +17,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import net.daum.mf.map.api.MapPOIItem;
 
@@ -32,11 +43,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends Activity implements TextWatcher {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+import static java.lang.String.valueOf;
+
+public class MainActivity extends Activity implements TextWatcher {
+    private int dlgCode = 0;
     private long backKeyPressedTime = 0;
     private Toast toast;
     private Button quizbtn, diarybtn, mapbtn, roulbtn;
@@ -44,14 +60,13 @@ public class MainActivity extends Activity implements TextWatcher {
     //private AutoCompleteTextView autoComplete;
     private TextView hidden;
     private ArrayList<String> foodOneTime = new ArrayList<String>();
-
+    private CardView cv_userInfo;
     private TextView tv;
     private Button search;
     private GpsTracker gpsTracker;
     MapPOIItem marker = new MapPOIItem();
     private ArrayList<String> matchFoods = new ArrayList<String>();
     private ArrayList<String> matchFoods2 = new ArrayList<String>();
-    private ArrayList<String> matchFoods3 = new ArrayList<String>();
     private ArrayList<String> imageurl = new ArrayList<String>();
     private ArrayList<String> placeName = new ArrayList<String>();
     private ArrayList<String> address_name = new ArrayList<String>();
@@ -65,20 +80,47 @@ public class MainActivity extends Activity implements TextWatcher {
     private String name2;
     private String image;
 
-
-
+    /**
+     * 데이터 관련
+     */
+    private FirebaseAuth auth; // 파이어 베이스 인증 객체
+    private FirebaseUser user;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private String userUID;
+    private String userName;
+    private String userProfile;
+    private String userEmail;
+    private String bornDate;
+    private String gender;
+    private String bodyLength;
+    private String bodyWeight;
+    private SQLiteManager sqLiteManager;
+    private ArrayList<String> spy = new ArrayList<String>();
+    private TextView tv_userInfo;
+    private Button btn_logout;
+    private CircleImageView iv_profile;
+    private TextView tv_nickname;
+    private String age;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
+        auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
+        user = auth.getCurrentUser();
+        userUID = user.getUid();
+        userProfile = user.getPhotoUrl().toString();
+        userName = user.getDisplayName();
+        userEmail = user.getEmail();
         gpsTracker = new GpsTracker(MainActivity.this);
 
-        CustomDialog customDialog = new CustomDialog(MainActivity.this);
-        customDialog.setCancelable(false);
-        customDialog.show();
+
+
+
+
 
 
 
@@ -87,12 +129,35 @@ public class MainActivity extends Activity implements TextWatcher {
 
         String address = getCurrentAddress(latitude, longitude);
 
-
+        cv_userInfo = findViewById(R.id.cv_userInfo);
+        tv_userInfo = findViewById(R.id.tv_userInfo);
+        tv_nickname = findViewById(R.id.tv_nickname);
+        iv_profile = findViewById(R.id.iv_profile);
+        btn_logout = findViewById(R.id.btn_logout);
+        updateUserInfo();
 
 
         hidden = findViewById(R.id.hidden);
         search = findViewById(R.id.search);
 
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                sqLiteManager.deleteAll();
+                Toast.makeText(getApplicationContext(),"로그아웃 되었습니다.",Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
+        cv_userInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomDialog customDialog = new CustomDialog(MainActivity.this);
+                customDialog.show();
+            }
+        });
 
 
 
@@ -536,5 +601,92 @@ public class MainActivity extends Activity implements TextWatcher {
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
      */
 
+    private void updateUserInfo() {
+        spy.clear();
+        ArrayList<JSONObject> array = sqLiteManager.getResultUser(); // DB의 내용을 배열단위로 모두 가져온다
+        try {
+            Calendar current = Calendar.getInstance();
+            int currentYear = current.get(Calendar.YEAR);
+            database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+            databaseReference = database.getReference(userUID); // DB 테이블 연결
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                        User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                        if (user.getBodyLength() != null){
+                            userUID = user.getUserUID();
+                            userName = user.getUserName();
+                            userProfile = user.getUserProfile();;
+                            userEmail = user.getUserEmail();
+                            bornDate = user.getBornDate();
+                            gender = user.getGender();
+                            bodyLength= user.getBodyLength();
+                            bodyWeight = user.getBodyWeight();
 
+                            sqLiteManager.insertUser(
+                                    userName,
+                                    userProfile,
+                                    bornDate,
+                                    gender,
+                                    bodyLength,
+                                    bodyWeight);
+
+                            spy.add(userName);
+                            age = String.valueOf(currentYear-Integer.valueOf(bornDate.substring(0,4)) + 1);
+                            String bmi = String.format("%.2f" ,Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100))) ;
+                            String bmr = String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))));
+                            Log.d("Lee", bodyWeight+ String.valueOf((Double.valueOf(bodyLength)/10) *  (Double.valueOf(bodyLength)/10)) );
+                            tv_userInfo.setText("   Age : " + age + " / BMI : " + bmi + " / BMR : " + bmr + "kcal" );
+                            tv_nickname.setText(userName);
+                            Glide.with(getApplicationContext()).load(valueOf(userProfile)).into(iv_profile);
+
+
+                        }else{
+
+
+
+                        }
+
+
+
+                    }
+                    if (spy.size()<1){
+                        CustomDialog customDialog = new CustomDialog(MainActivity.this);
+                        customDialog.setCancelable(false);
+                        customDialog.show();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // 디비를 가져오던중 에러 발생 시
+                    Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                }
+            });
+
+
+
+            int length = array.size(); // 배열의 길이
+            for (int idx = 0; idx < length; idx++) {  // 배열의 길이만큼 반복
+                JSONObject object = array.get(idx);// json의 idx번째 object를 가져와서,
+                String id = object.getString("id");
+                String userName = object.getString("userName");
+                String userProfile = object.getString("userProfile");
+                String bornDate = object.getString("bornDate");
+                String gender = object.getString("gender");
+                String bodyLength = object.getString("bodyLength");
+                String bodyWeight = object.getString("bodyWeight");
+
+                // 저장한 내용을 토대로 ListView에 다시 그린다.
+
+
+            }
+        } catch (Exception e) {
+            Log.i("seo", "error : " + e);
+
+        }
+    }
 }

@@ -348,7 +348,7 @@ public class Diary extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView);
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "NewDiary2021.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
 

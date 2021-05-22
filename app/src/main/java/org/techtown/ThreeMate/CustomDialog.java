@@ -1,13 +1,16 @@
 package org.techtown.ThreeMate;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,10 +19,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -41,7 +49,7 @@ public class CustomDialog extends Dialog{
     private RadioGroup radioGroup;
     private EditText bodyLength;
     private EditText bodyWeight;
-
+    private SQLiteManager sqLiteManager;
 
     /**
      * Fire Base 등장
@@ -60,6 +68,15 @@ public class CustomDialog extends Dialog{
     private String userProfile;
     private String userUID;;
     private String gender = " " ;
+
+    private String userUID1;
+    private String userProfile1;
+    private String userName1;
+    private String userEmail1;
+    private String gender1;
+    private String bodyLength1;
+    private String bodyWeight1;
+    private String bornDate1;
 
 
 
@@ -83,9 +100,11 @@ public class CustomDialog extends Dialog{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_dialog);
 
+
+
         //다이얼로그의 배경을 투명으로 만든다.
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
+        sqLiteManager = new SQLiteManager(getContext(), "ThreeMate.db", null, 1);
         /**
          * FireBase 인증 객체 초기화
          */
@@ -114,6 +133,51 @@ public class CustomDialog extends Dialog{
         radioGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
         bodyLength = findViewById(R.id.bodyLength);
         bodyWeight = findViewById(R.id.bodyWeight);
+
+            database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+            databaseReference = database.getReference(userUID); // DB 테이블 연결
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                        User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                        if (user.getUserName() != null){
+                            userUID1 = user.getUserUID();
+                            userName1 = user.getUserName();
+                            userProfile1 = user.getUserProfile();;
+                            userEmail1 = user.getUserEmail();
+                            bornDate1 = user.getBornDate();
+                            gender1 = user.getGender();
+                            bodyLength1= user.getBodyLength();
+                            bodyWeight1 = user.getBodyWeight();
+
+                            bornDate.setText(bornDate1);
+                            if (gender1.equals("남")){
+                                genderMale.setChecked(true);
+                            }else {
+                                genderFemale.setChecked(true);
+                            }
+                            bodyLength.setText(bodyLength1);
+                            bodyWeight.setText(bodyWeight1);
+                            button.setText("수정");
+
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // 디비를 가져오던중 에러 발생 시
+                    Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                }
+            });
+
+
+
 
         bornDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +220,12 @@ public class CustomDialog extends Dialog{
                     Toast.makeText(context,"정보를 모두 입력해주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    sqLiteManager.deleteAll();
+                    sqLiteManager.insertUser(userName, userProfile,
+                            bornDate.getText().toString(),
+                            gender,
+                            bodyLength.getText().toString(),
+                            bodyWeight.getText().toString());
                     /**
                      * insert data to FireBase Realtime DB
                      */
@@ -166,6 +236,13 @@ public class CustomDialog extends Dialog{
                             gender,
                             bornDate.getText().toString(),bodyLength.getText().toString(),
                             bodyWeight.getText().toString());
+
+
+
+                    Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);
+                    ((Activity)context).finish();
+
                     dismiss();
                 }
 
@@ -201,5 +278,6 @@ public class CustomDialog extends Dialog{
         User user = new User(userUID, userName, userProfile, userEmail, gender, bornDate, bodyLength, bodyWeight);
 
         databaseReference.child("UserInfo").setValue(user);
+        sqLiteManager.insertUser(userName,userProfile,bornDate,gender,bodyLength,bodyWeight);
     }
 }

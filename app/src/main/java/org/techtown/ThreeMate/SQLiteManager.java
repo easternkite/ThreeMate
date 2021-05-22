@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class SQLiteManager extends SQLiteOpenHelper {
 
     private String tableName = "FOOD";
+    private String tableNameUser = "User";
     public SQLiteManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -20,6 +21,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + tableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, kcal TEXT, carbs TEXT, protein TEXT, fat TEXT, date TEXT, url TEXT);");
+        db.execSQL("CREATE TABLE " + tableNameUser + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT,userProfile TEXT,bornDate TEXT, gender TEXT, bodyLength TEXT, bodyWeight TEXT);");
     }
 
     @Override
@@ -35,6 +37,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
         db.execSQL(query);
 
     }
+    public void insertUser(String userName,String userProfile, String bornDate, String gender, String bodyLength, String bodyWeight) {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "INSERT INTO " + tableNameUser + " SELECT null, '" + userName + "','" + userProfile + "', '" + bornDate + "','" + gender + "','" + bodyLength + "','" + bodyWeight + "'  WHERE NOT EXISTS (SELECT * FROM " +  tableNameUser + " WHERE userName = '" + userName + "')";
+        //String query = "INSERT INTO " + tableName + " VALUES(null,'" + userName + "', '" + title + "', '" + contents+ "', '" + profile+ "', '" + date + "', '" + time + "', '" + address + "') WHERE NOT EXISTS (SELECT * FROM " + tableName + " WHERE date = '" + date + "' AND time = '" + time + ");";
+        db.execSQL(query);
+    }
+
+
 
     // id 값에 맞는 DB row 업데이트
     public void update(String name, String kcal, String carbs, String protein, String fat, String date, String url) {
@@ -62,6 +72,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
 
     }
+
+    public void deleteAll() {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "DELETE FROM " + tableName + "';";
+        //db.delete(tableName,"", null);
+        db.delete(tableNameUser,"", null);
+    }
+
     public int getTotalExpenses(String kcal)
     {
         int total = 0;
@@ -126,11 +144,38 @@ public class SQLiteManager extends SQLiteOpenHelper {
             }
         }
         catch (Exception e){
-            Log.i("seo","error : " + e);
+            Log.i("Lee","error : " + e);
         }
 
         return array;
     }
+
+    public ArrayList<JSONObject> getResultUser() {
+        ArrayList<JSONObject> array = new ArrayList<JSONObject>();
+        try{
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + tableNameUser  + "';'", null);
+            while (cursor.moveToNext()) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id",cursor.getString(0));
+                jsonObject.put("userName",cursor.getString(1));
+                jsonObject.put("userProfile",cursor.getString(2));
+                jsonObject.put("bornDate",cursor.getString(3));
+                jsonObject.put("gender",cursor.getString(4));
+                jsonObject.put("bodyLength",cursor.getString(5));
+                jsonObject.put("bodyWeight",cursor.getString(6));
+                array.add(jsonObject);
+            }
+        }
+        catch (Exception e){
+            Log.i("Lee","error : " + e);
+        }
+
+        return array;
+    }
+
+
+
 
     @Override
     public void onConfigure(SQLiteDatabase db) {
