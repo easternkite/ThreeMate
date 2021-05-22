@@ -499,7 +499,7 @@ public class Diary extends AppCompatActivity {
                             edit_protein.getText().toString(),
                             edit_fat.getText().toString(),
                             textView.getText().toString(),time);
-                    Toast.makeText(getApplicationContext(),"음식 불러오기 완료! '+' 버튼을 눌러 저장해주세요!",Toast.LENGTH_LONG).show();
+
 
                     updateList();
 

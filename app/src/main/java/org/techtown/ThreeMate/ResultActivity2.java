@@ -114,6 +114,7 @@ public class ResultActivity2 extends AppCompatActivity {
                             myIntent.putExtra("fat", foodji.get(0));
                             myIntent.putExtra("url", imageurl.get(0));
                             myIntent.putExtra("num", 1);
+                            Toast.makeText(getApplicationContext(),"음식 불러오기 완료! '+' 버튼을 눌러 저장해주세요!",Toast.LENGTH_LONG).show();
                             startActivity(myIntent);
                             finish();
                         }
