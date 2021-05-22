@@ -104,7 +104,7 @@ public class CustomDialog extends Dialog{
 
         //다이얼로그의 배경을 투명으로 만든다.
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        sqLiteManager = new SQLiteManager(getContext(), "ThreeMate.db", null, 1);
+        sqLiteManager = new SQLiteManager(getContext(), "ThreeMate2.db", null, 1);
         /**
          * FireBase 인증 객체 초기화
          */

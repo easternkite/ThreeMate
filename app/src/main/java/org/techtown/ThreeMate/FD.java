@@ -7,15 +7,40 @@ public class FD {
     public String carbs;
     public String protein;
     public String fat;
+    public String date;
+    public String time;
 
-    public FD(String icon, String name, String kcal, String carbs, String protein, String fat){
+
+    public FD(){
+    }
+
+    public FD(String icon, String name, String kcal, String carbs, String protein, String fat, String date, String time){
         this.icon = icon;
         this.name = name;
         this.kcal = kcal;
         this.carbs=carbs;
         this.protein = protein;
         this.fat    = fat;
+        this.date    = date;
+        this.time    = time;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getIcon() {
         return icon;
     }

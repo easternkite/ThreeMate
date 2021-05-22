@@ -2,6 +2,7 @@ package org.techtown.ThreeMate;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +37,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -57,7 +69,7 @@ public class Diary extends AppCompatActivity {
     private TextView resultText;
     private Button btn_upload;// 업로드버튼
     private EditText edit_name, edit_kcal, edit_carbs, edit_protein, edit_fat;       // 입력받을 폼 3개(음식이름, 음식칼로리, 날짜)
-                      // SQLite Class 관리용 객체
+    // SQLite Class 관리용 객체
     private EditText textView;
     private EditText edit_attach;
     private String  imageUrl = "";
@@ -71,6 +83,8 @@ public class Diary extends AppCompatActivity {
     Bitmap resultPhotoBitmap;
     private String myFormat = "yyyy-MM-dd";    // 출력형식   2018/11/28
     private SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
+    private SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss", Locale.KOREA);
+
     private ListView listView;// DB에 저장된 내용을 보여주기위한 리스트뷰
     int figures;
     private ArrayAdapter<String> adapter;
@@ -85,6 +99,7 @@ public class Diary extends AppCompatActivity {
     private ArrayList<String> idIndicator2 = new ArrayList<String>();
     private ArrayList<String> matchfood = new ArrayList<String>();
     private ArrayList<String> matchdate = new ArrayList<String>();
+    private ArrayList<String> matchtime = new ArrayList<String>();
     private String idIndicator ="";
     private Context context;
     private int sum=0;
@@ -93,8 +108,23 @@ public class Diary extends AppCompatActivity {
     private int down;
     private int up;
 
+
+    /**
+     * FIREBASE 등장
+     */
+    private FirebaseAuth auth; // 파이어 베이스 인증 객체
+    private FirebaseUser user;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private String userUID;
+    private String time;
     RecyclerView recyclerView;
     FoodAdapter adapter2;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private Uri filePath;
+    private String stringUri;
+
 
     SearchActivity MA = (SearchActivity) SearchActivity.activity;
     Calendar myCalendar = Calendar.getInstance();
@@ -120,8 +150,14 @@ public class Diary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary);
 
-
+        auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
+        user = auth.getCurrentUser();
+        userUID = user.getUid();
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        databaseReference = database.getReference(userUID); // DB 테이블 연결
         pictureImageView = findViewById(R.id.pictureImageView);
+        new Thread(r).start();
+
 
         Intent secondIntent = getIntent();
         String name = secondIntent.getStringExtra("name");
@@ -161,7 +197,17 @@ public class Diary extends AppCompatActivity {
                             edit_protein.getText().toString(),
                             edit_fat.getText().toString(),
                             textView.getText().toString(),
-                            url[0]);
+                            url[0], time);
+
+                    writeNewFood( url[0],
+                            edit_name.getText().toString(),
+                            edit_kcal.getText().toString(),
+                            edit_carbs.getText().toString(),
+                            edit_protein.getText().toString(),
+                            edit_fat.getText().toString(),
+                            textView.getText().toString(),
+                            time
+                    );
 
                     // 리스트뷰를 갱신한다. (DB의 내용이 달라지니까)
                     updateList();
@@ -257,11 +303,11 @@ public class Diary extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String dayDown=sdf.format(myCalendar.getTime()).replace("-","");
-               int dayDownint =Integer.parseInt(dayDown);
-               dayDownint = dayDownint -1;
-               dayDown = String.valueOf(dayDownint);
+                int dayDownint =Integer.parseInt(dayDown);
+                dayDownint = dayDownint -1;
+                dayDown = String.valueOf(dayDownint);
 
-               SimpleDateFormat sdfmt = new SimpleDateFormat("yyyyMMdd");
+                SimpleDateFormat sdfmt = new SimpleDateFormat("yyyyMMdd");
                 try {
                     Date date = sdfmt.parse(dayDown);
                     dayDown = new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
@@ -348,7 +394,7 @@ public class Diary extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView);
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate2.db", null, 1);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -360,7 +406,7 @@ public class Diary extends AppCompatActivity {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        delete(position);
 
                         sqLiteManager.delete(idIndicator2.get(position));
                         Toast.makeText(getApplicationContext(),"["+matchdate.get(position)+"]"+matchfood.get(position)+" 쓱싹쓱싹!",Toast.LENGTH_LONG).show();
@@ -472,39 +518,49 @@ public class Diary extends AppCompatActivity {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            if (edit_kcal.getText().toString().equals("")||edit_name.getText().toString().equals("")||edit_carbs.getText().toString().equals("")||edit_protein.getText().toString().equals("")||edit_fat.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(),"음식 정보를 입력하십시오.",Toast.LENGTH_LONG).show();
-            }else{
-                if (imageUrl.length() >0){
-                    url[0] = imageUrl;
+                if (edit_kcal.getText().toString().equals("")||edit_name.getText().toString().equals("")||edit_carbs.getText().toString().equals("")||edit_protein.getText().toString().equals("")||edit_fat.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"음식 정보를 입력하십시오.",Toast.LENGTH_LONG).show();
+                }else{
+                    if (imageUrl.length() >0){
+                        url[0] = imageUrl;
+                    }
+                    // EditText에 입력한 정보를 DB에 Insert.
+                    sqLiteManager.insert(
+                            edit_name.getText().toString(),
+                            edit_kcal.getText().toString(),
+                            edit_carbs.getText().toString(),
+                            edit_protein.getText().toString(),
+                            edit_fat.getText().toString(),
+                            textView.getText().toString(),
+                            url[0], time);
+
+                    // 리스트뷰를 갱신한다. (DB의 내용이 달라지니까)
+
+                    writeNewFood( url[0],
+                            edit_name.getText().toString(),
+                            edit_kcal.getText().toString(),
+                            edit_carbs.getText().toString(),
+                            edit_protein.getText().toString(),
+                            edit_fat.getText().toString(),
+                            textView.getText().toString(),time);
+
+
+                    updateList();
+
+                    Toast.makeText(getApplicationContext(),"끄적끄적!",Toast.LENGTH_LONG).show();
+                    edit_name.setText(null);
+                    edit_kcal.setText(null);
+                    edit_carbs.setText(null);
+                    edit_protein.setText(null);
+                    edit_fat.setText(null);
+                    url[0] = null;
+                    edit_attach.setText(null);
+                    imageUrl = null;
+                    drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
+                    pictureImageView.setImageDrawable(drawable);
+                    LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
+                    recyclerView.setLayoutAnimation(controller);
                 }
-                // EditText에 입력한 정보를 DB에 Insert.
-                sqLiteManager.insert(
-                        edit_name.getText().toString(),
-                        edit_kcal.getText().toString(),
-                        edit_carbs.getText().toString(),
-                        edit_protein.getText().toString(),
-                        edit_fat.getText().toString(),
-                        textView.getText().toString(),
-                        url[0]);
-
-                // 리스트뷰를 갱신한다. (DB의 내용이 달라지니까)
-                updateList();
-
-                Toast.makeText(getApplicationContext(),"끄적끄적!",Toast.LENGTH_LONG).show();
-                edit_name.setText(null);
-                edit_kcal.setText(null);
-                edit_carbs.setText(null);
-                edit_protein.setText(null);
-                edit_fat.setText(null);
-                url[0] = null;
-                edit_attach.setText(null);
-                imageUrl = null;
-                drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
-                pictureImageView.setImageDrawable(drawable);
-                LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
-                recyclerView.setLayoutAnimation(controller);
-            }
 
             }
         });
@@ -596,9 +652,9 @@ public class Diary extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                    Intent intent = new Intent(Diary.this, Diary.class);
-                    finish();
-                    startActivity(intent);
+                Intent intent = new Intent(Diary.this, Diary.class);
+                finish();
+                startActivity(intent);
             }
         });
     }
@@ -628,56 +684,59 @@ public class Diary extends AppCompatActivity {
         matchdate.clear();
         matchfood.clear();
         idIndicator2.clear();
+        matchtime.clear();
         sum=0;
         resultText.setText(Double.toString(0)+ " kcal");
         ArrayList<JSONObject> array = sqLiteManager.getResult(textView.getText().toString()); // DB의 내용을 배열단위로 모두 가져온다
-            try{
+        try{
 
 
 
-                int length =  array.size(); // 배열의 길이
-                for(int idx = 0; idx < length; idx++){  // 배열의 길이만큼 반복
+            int length =  array.size(); // 배열의 길이
+            for(int idx = 0; idx < length; idx++){  // 배열의 길이만큼 반복
 
-                    JSONObject object = array.get(idx);                // json의 idx번째 object를 가져와서,
-                    String id = object.getString("id");         // object 내용중 id를 가져와 저장.
-                    String name = object.getString("name");     // object 내용중 name를 가져와 저장.
-                    String kcal = object.getString("kcal");     // object 내용중 kcal를 가져와 저장.
-                    String carbs = object.getString("carbs");     // object 내용중 carbs를 가져와 저장.
-                    String protein = object.getString("protein");     // object 내용중 protein를 가져와 저장.
-                    String fat = object.getString("fat");     // object 내용중 fat를 가져와 저장.
-                    String date = object.getString("date");     // object 내용중 date를 가져와 저장.
-                    String Url = object.getString("url");     // object 내용중 date를 가져와 저장.
-                    // 저장한 내용을 토대로 ListView에 다시 그린다.
+                JSONObject object = array.get(idx);                // json의 idx번째 object를 가져와서,
+                String id = object.getString("id");         // object 내용중 id를 가져와 저장.
+                String name = object.getString("name");     // object 내용중 name를 가져와 저장.
+                String kcal = object.getString("kcal");     // object 내용중 kcal를 가져와 저장.
+                String carbs = object.getString("carbs");     // object 내용중 carbs를 가져와 저장.
+                String protein = object.getString("protein");     // object 내용중 protein를 가져와 저장.
+                String fat = object.getString("fat");     // object 내용중 fat를 가져와 저장.
+                String date = object.getString("date");     // object 내용중 date를 가져와 저장.
+                String Url = object.getString("url");     // object 내용중 date를 가져와 저장.
+                String time = object.getString("time");     // object 내용중 date를 가져와 저장.
+                // 저장한 내용을 토대로 ListView에 다시 그린다.
 
-                    adapter2.addItem(new FD(Url, "음식명 : " + name  , "열량 : " + kcal + "kcal","탄수화물 : " + carbs+ "g", "단백질 : " + protein + "g","지방 : " +  fat+ "g"));
-                    recyclerView.setAdapter(adapter2);
+                adapter2.addItem(new FD(Url, "음식명 : " + name  , "열량 : " + kcal + "kcal","탄수화물 : " + carbs+ "g", "단백질 : " + protein + "g","지방 : " +  fat+ "g",date, time));
+                recyclerView.setAdapter(adapter2);
 
 
-                    foodkcal.add(kcal);
-                    idIndicator2.add(id);
-                    matchfood.add(name);
-                    matchdate.add(date);
+                foodkcal.add(kcal);
+                idIndicator2.add(id);
+                matchfood.add(name);
+                matchdate.add(date);
+                matchtime.add(time);
 
 
                 idIndicator = id;
                 sum += Double.parseDouble(kcal);
-                    resultText.setText(Double.toString(sum)+ " kcal");
-
-                }
-                Log.d("Lee", String.valueOf(sum + "kcal"));
+                resultText.setText(Double.toString(sum)+ " kcal");
 
             }
-            catch (Exception e){
-                Log.i("seo","error : " + e);
+            Log.d("Lee", String.valueOf(sum + "kcal"));
 
-            }
-
-            adapter2.notifyDataSetChanged();
         }
+        catch (Exception e){
+            Log.i("seo","error : " + e);
+
+        }
+
+        adapter2.notifyDataSetChanged();
+    }
     @Override
     public void onBackPressed() {
-            finish();
-        }
+        finish();
+    }
     private void updateLabel() {
 
 
@@ -691,10 +750,13 @@ public class Diary extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 try {
-                    Uri uri = data.getData();
-                    Glide.with(getApplicationContext()).load(String.valueOf(uri)).into(pictureImageView);
-                    edit_attach.setText(String.valueOf("사진 첨부 완료!"));
-                    imageUrl = String.valueOf(uri) ;
+                    filePath = data.getData();
+                    //Glide.with(getActivity().getApplicationContext()).load(String.valueOf(filePath)).into(imageView);
+                    uploadFile();
+
+
+
+
                 } catch (Exception e) {
 
                 }
@@ -705,6 +767,128 @@ public class Diary extends AppCompatActivity {
     }
 
 
+    public void writeNewFood(String icon, String name , String kcal, String carbs,String protein,String fat,String date,String time) {
+        FD fd = new FD(icon, name, kcal, carbs, protein, fat,date, time);
+
+        databaseReference.child(textView.getText().toString() + "(" +time + ")" ).setValue(fd);
+    }
+
+
+    Runnable r = new Runnable() {
+        @Override
+        public void run() {
+
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+
+                } catch (Exception e) {
+
+                }
+                if (this != null){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            time = sdf2.format(new Date());
+                        }
+                    });
+                }
+
+            }
+        }
+
+    };
+
+    private void delete(int position){
+        if (matchdate.size()>0){
+            database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+            databaseReference = database.getReference(userUID);// DB 테이블 연결
+            databaseReference.child(matchdate.get(position) + "(" +matchtime.get(position) + ")").setValue(null);
+
+        }
+    }
+
+    private void uploadFile() {
+        //업로드할 파일이 있으면 수행
+        if (filePath != null) {
+            //업로드 진행 Dialog 보이기
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("업로드중...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            //storage
+            storage = FirebaseStorage.getInstance();
+
+            //Unique한 파일명을 만들자.
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+            Date now = new Date();
+            String filename = formatter.format(now) + ".png";
+            //storage 주소와 폴더 파일명을 지정해 준다.
+            storageRef = storage.getReferenceFromUrl("gs://threemate-3c56c.appspot.com/").child("images/" +userUID+"/"+ filename);
+            //올라가거라...
+            storageRef.putFile(filePath)
+                    //성공시
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            clickLoad();
+                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                            edit_attach.setText(String.valueOf("사진 첨부 완료!"));
+                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //실패시
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //진행중
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                            double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
+                            //dialog에 진행률을 퍼센트로 출력해 준다
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                        }
+                    });
+        } else {
+            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void clickLoad() {
+
+        //Firebase Storage에 저장되어 있는 이미지 파일 읽어오기
+
+        //1. Firebase Storeage관리 객체 얻어오기
+        FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
+
+        //2. 최상위노드 참조 객체 얻어오기
+        StorageReference rootRef= firebaseStorage.getReference();
+
+        //읽어오길 원하는 파일의 참조객체 얻어오기
+        //예제에서는 자식노드 이름은 monkey.png
+
+
+        //하위 폴더가 있다면 폴더명까지 포함하여
+        if(storageRef!=null){
+            //참조객체로 부터 이미지의 다운로드 URL을 얻어오기
+            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //다운로드 URL이 파라미터로 전달되어 옴.
+                    Glide.with(getApplicationContext()).load(String.valueOf(uri)).into(pictureImageView);
+                    stringUri = String.valueOf(uri);
+                }
+            });
+
+        }
+
+    }
 
 }
 

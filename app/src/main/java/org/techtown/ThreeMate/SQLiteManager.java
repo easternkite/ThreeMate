@@ -20,7 +20,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + tableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, kcal TEXT, carbs TEXT, protein TEXT, fat TEXT, date TEXT, url TEXT);");
+        db.execSQL("CREATE TABLE " + tableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, kcal TEXT, carbs TEXT, protein TEXT, fat TEXT, date TEXT, url TEXT, time TEXT);");
         db.execSQL("CREATE TABLE " + tableNameUser + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT,userProfile TEXT,bornDate TEXT, gender TEXT, bodyLength TEXT, bodyWeight TEXT);");
     }
 
@@ -30,13 +30,23 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     // 테이블에 row 추가
-    public void insert(String name, String kcal, String carbs, String protein, String fat, String date, String url) {
+    public void insert(String name, String kcal, String carbs, String protein, String fat, String date, String url, String time) {
         SQLiteDatabase db = getWritableDatabase();
 
-        String query = "INSERT INTO " + tableName + " VALUES(null, '" + name + "', '" + kcal + "', '" + carbs + "', '" + protein + "', '" + fat + "', '" + date + "', '" + url + "');";
+        String query = "INSERT INTO " + tableName + " VALUES(null, '" + name + "', '" + kcal + "', '" + carbs + "', '" + protein + "', '" + fat + "', '" + date + "', '" + url + "', '" + time + "');";
         db.execSQL(query);
 
     }
+    public void insert2(String name, String kcal, String carbs, String protein, String fat, String date, String url, String time) {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "INSERT INTO " + tableName + " SELECT null, '" + name + "','" + kcal + "', '" + carbs + "','" + protein + "','" + fat + "','" + date + "','" + url + "','" + time + "'  WHERE NOT EXISTS (SELECT * FROM " +  tableName + " WHERE date = '" + date + "' AND time = '" + time + "')";
+        //String query = "INSERT INTO " + tableName + " VALUES(null,'" + userName + "', '" + title + "', '" + contents+ "', '" + profile+ "', '" + date + "', '" + time + "', '" + address + "') WHERE NOT EXISTS (SELECT * FROM " + tableName + " WHERE date = '" + date + "' AND time = '" + time + ");";
+        db.execSQL(query);
+    }
+
+
+
+
     public void insertUser(String userName,String userProfile, String bornDate, String gender, String bodyLength, String bodyWeight) {
         SQLiteDatabase db = getWritableDatabase();
         String query = "INSERT INTO " + tableNameUser + " SELECT null, '" + userName + "','" + userProfile + "', '" + bornDate + "','" + gender + "','" + bodyLength + "','" + bodyWeight + "'  WHERE NOT EXISTS (SELECT * FROM " +  tableNameUser + " WHERE userName = '" + userName + "')";
@@ -47,10 +57,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
 
     // id 값에 맞는 DB row 업데이트
-    public void update(String name, String kcal, String carbs, String protein, String fat, String date, String url) {
+    public void update(String name, String kcal, String carbs, String protein, String fat, String date, String url, String time) {
         SQLiteDatabase db = getWritableDatabase();
 
-        String query = "UPDATE " + tableName +" SET name='" + name + "', kcal='" + kcal + "', carbs='" + carbs + "', protein='" + protein + "', fat='" + fat + "', date='" + date + "', url='" + url + "' WHERE id="  + ";";
+        String query = "UPDATE " + tableName +" SET name='" + name + "', kcal='" + kcal + "', carbs='" + carbs + "', protein='" + protein + "', fat='" + fat + "', date='" + date + "', url='" + url +"', time='" + time + "'+ WHERE id="  + ";";
         db.execSQL(query);
 
     }
@@ -76,7 +86,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void deleteAll() {
         SQLiteDatabase db = getWritableDatabase();
         String query = "DELETE FROM " + tableName + "';";
-        //db.delete(tableName,"", null);
+        db.delete(tableName,"", null);
         db.delete(tableNameUser,"", null);
     }
 
@@ -111,6 +121,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 jsonObject.put("fat",cursor.getString(5));
                 jsonObject.put("date",cursor.getString(6));
                 jsonObject.put("url",cursor.getString(7));
+                jsonObject.put("time",cursor.getString(8));
                 /**
                  * ex
                  * jsonObject 변수에 들어간 포맷양식

@@ -46,7 +46,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/DateUp"
                 app:layout_constraintTop_toTopOf="parent"
-                android:autofillHints=""
                 android:inputType="date"
                 tools:ignore="LabelFor" />
 
@@ -120,7 +119,8 @@
                     android:text=""
                     android:textColor="#FFFFFFFF"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <View
                     android:id="@+id/center_view"
@@ -175,7 +175,6 @@
                             android:id="@+id/edit_name"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:autofillHints=""
                             android:inputType="text"
                             android:textColor="@color/text_gray"
                             android:textSize="20sp"
@@ -190,12 +189,11 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="LabelFor"
-                            android:autofillHints="" />
+                            />
 
                         <EditText
                             android:id="@+id/edit_carbs"
                             android:layout_weight="1"
-                            android:autofillHints=""
                             android:inputType="number"
                             android:textColor="@color/text_gray"
                             android:textSize="20sp"
@@ -241,7 +239,6 @@
                             android:id="@+id/edit_protein"
                             android:layout_width="0dp"
                             android:layout_weight="2"
-                            android:autofillHints=""
                             android:inputType="number"
                             android:textColor="@color/text_gray"
                             android:textSize="20sp"
@@ -252,7 +249,6 @@
                             android:id="@+id/edit_fat"
                             android:layout_width="0dp"
                             android:layout_weight="2"
-                            android:autofillHints=""
                             android:inputType="number"
                             android:textColor="@color/text_gray"
                             android:textSize="20sp"
@@ -264,7 +260,6 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
-                            android:autofillHints=""
                             android:hint="이곳을 눌러 첨부"
                             android:inputType="text"
                             android:textColor="@color/text_gray"

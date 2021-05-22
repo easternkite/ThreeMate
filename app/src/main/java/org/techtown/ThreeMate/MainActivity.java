@@ -1,10 +1,12 @@
 package org.techtown.ThreeMate;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import net.daum.mf.map.api.MapPOIItem;
 
@@ -87,6 +91,9 @@ public class MainActivity extends Activity implements TextWatcher {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private Uri filePath;
     private String userUID;
     private String userName;
     private String userProfile;
@@ -108,7 +115,7 @@ public class MainActivity extends Activity implements TextWatcher {
         setContentView(R.layout.activity_main);
 
 
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate2.db", null, 1);
         auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
         user = auth.getCurrentUser();
         userUID = user.getUid();
@@ -121,7 +128,7 @@ public class MainActivity extends Activity implements TextWatcher {
 
 
 
-
+        firebaseUpdate();
 
 
         final double latitude = gpsTracker.getLatitude();
@@ -690,4 +697,64 @@ public class MainActivity extends Activity implements TextWatcher {
 
         }
     }
+
+    private void firebaseUpdate(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("데이터 동기화중...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        sqLiteManager = new SQLiteManager(this, "ThreeMate2.db", null, 1);
+
+
+
+
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        databaseReference = database.getReference(userUID); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    FD fd = snapshot.getValue(FD.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    if (fd.getName() != null){
+                        String name = fd.getName();
+                        String kcal = fd.getKcal();
+                        String carbs = fd.getCarbs();
+                        String protein = fd.getProtein();
+                        String fat = fd.getFat();
+                        String date = fd.getDate();
+                        String url = fd.getIcon();
+                        String time = fd.getTime();
+
+
+
+                        sqLiteManager.insert2(name,
+                                kcal,
+                                carbs,
+                                protein,
+                                fat,
+                                date, url,time);
+
+
+
+                    }
+
+
+                }
+
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+
+    }
+
 }
