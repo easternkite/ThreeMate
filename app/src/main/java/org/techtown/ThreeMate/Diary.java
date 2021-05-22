@@ -170,64 +170,6 @@ public class Diary extends AppCompatActivity {
         final String[] url = {secondIntent.getStringExtra("url")};
 
 
-        if(num == 1){
-            AlertDialog.Builder builder = new AlertDialog.Builder(Diary.this);
-            builder.setCancelable(false);
-            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    edit_name.setText(null);
-                    edit_kcal.setText(null);
-                    edit_carbs.setText(null);
-                    edit_protein.setText(null);
-                    edit_fat.setText(null);
-                    url[0] = null;
-                }
-            });
-            builder.setTitle("다이어리 기입");
-            builder.setMessage("[" + name + "]" + " 음식을 저장하시겠습니까?");
-            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    sqLiteManager.insert(
-                            edit_name.getText().toString(),
-                            edit_kcal.getText().toString(),
-                            edit_carbs.getText().toString(),
-                            edit_protein.getText().toString(),
-                            edit_fat.getText().toString(),
-                            textView.getText().toString(),
-                            url[0], time);
-
-                    writeNewFood( url[0],
-                            edit_name.getText().toString(),
-                            edit_kcal.getText().toString(),
-                            edit_carbs.getText().toString(),
-                            edit_protein.getText().toString(),
-                            edit_fat.getText().toString(),
-                            textView.getText().toString(),
-                            time
-                    );
-
-                    // 리스트뷰를 갱신한다. (DB의 내용이 달라지니까)
-                    updateList();
-
-                    Toast.makeText(getApplicationContext(),"끄적끄적!",Toast.LENGTH_LONG).show();
-                    edit_name.setText(null);
-                    edit_kcal.setText(null);
-                    edit_carbs.setText(null);
-                    edit_protein.setText(null);
-                    edit_fat.setText(null);
-                    url[0] = null;
-                    imageUrl = null;
-                    drawable = getResources().getDrawable(R.mipmap.ic_launcher_round);
-                    pictureImageView.setImageDrawable(drawable);
-                    LayoutAnimationController controller= new LayoutAnimationController(set, 0.17f);
-                    recyclerView.setLayoutAnimation(controller);
-                }
-            });
-            builder.show();
-        }
 
 
         // 각 컴포넌트 제어를 위한 아이디할당 (EditText, Button)
@@ -243,6 +185,20 @@ public class Diary extends AppCompatActivity {
         edit_fat = findViewById(R.id.edit_fat);
         textView = (EditText) findViewById(R.id.date);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        if(num == 1){
+
+            edit_name.setText(name);
+            edit_kcal.setText(kcal);
+            edit_carbs.setText(carbs);
+            edit_protein.setText(protein);
+            edit_fat.setText(fat);
+
+
+
+
+
+
+        }
 
 
 
@@ -532,22 +488,22 @@ public class Diary extends AppCompatActivity {
                             edit_protein.getText().toString(),
                             edit_fat.getText().toString(),
                             textView.getText().toString(),
-                            url[0], time);
+                            stringUri != null?stringUri:url[0], time);
 
                     // 리스트뷰를 갱신한다. (DB의 내용이 달라지니까)
 
-                    writeNewFood( url[0],
+                    writeNewFood( stringUri != null?stringUri:url[0],
                             edit_name.getText().toString(),
                             edit_kcal.getText().toString(),
                             edit_carbs.getText().toString(),
                             edit_protein.getText().toString(),
                             edit_fat.getText().toString(),
                             textView.getText().toString(),time);
-
+                    Toast.makeText(getApplicationContext(),"음식 불러오기 완료! '+' 버튼을 눌러 저장해주세요!",Toast.LENGTH_LONG).show();
 
                     updateList();
 
-                    Toast.makeText(getApplicationContext(),"끄적끄적!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"끄적끄적!",Toast.LENGTH_SHORT).show();
                     edit_name.setText(null);
                     edit_kcal.setText(null);
                     edit_carbs.setText(null);
