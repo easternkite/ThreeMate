@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
-import org.techtown.ThreeMate.R;
 
 import java.util.ArrayList;
 
@@ -91,9 +90,10 @@ public class DiaryFragment extends Fragment {
                 String fat = object.getString("fat");     // object 내용중 fat를 가져와 저장.
                 String date = object.getString("date");     // object 내용중 date를 가져와 저장.
                 String Url = object.getString("url");     // object 내용중 date를 가져와 저장.
+                String time = object.getString("time");     // object 내용중 date를 가져와 저장.
                 // 저장한 내용을 토대로 ListView에 다시 그린다.
 
-                adapter2.addItem(new FD(Url, "음식명 : " + name + "(" + date + ")" , "열량 : " + kcal + "kcal","탄수화물 : " + carbs+ "g", "단백질 : " + protein + "g","지방 : " +  fat+ "g"));
+                adapter2.addItem(new FD(Url, "음식명 : " + name + "(" + date + ")" , "열량 : " + kcal + "kcal","탄수화물 : " + carbs+ "g", "단백질 : " + protein + "g","지방 : " +  fat+ "g",date, time));
 
                 recyclerView.setAdapter(adapter2);
                 foodkcal.add(kcal);

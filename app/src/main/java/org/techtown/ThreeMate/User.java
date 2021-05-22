@@ -9,6 +9,8 @@ public class User {
     private String userEmail;
     private String bornDate;
     private String gender;
+    private String bodyLength;
+    private String bodyWeight;
 
 
     public User(){
@@ -16,13 +18,31 @@ public class User {
 
 
 
-    public User(String userUID, String userName, String  userProfile, String userEmail, String bornDate, String gender){
+    public User(String userUID, String userName, String  userProfile, String userEmail, String bornDate, String gender, String bodyLength, String bodyWeight){
         this.userUID = userUID;
         this.userName = userName;
         this.userProfile = userProfile;
         this.userEmail = userEmail;
         this.bornDate = bornDate;
         this.gender = gender;
+        this.bodyLength = bodyLength;
+        this.bodyWeight = bodyWeight;
+    }
+
+    public String getBodyLength() {
+        return bodyLength;
+    }
+
+    public void setBodyLength(String bodyLength) {
+        this.bodyLength = bodyLength;
+    }
+
+    public String getBodyWeight() {
+        return bodyWeight;
+    }
+
+    public void setBodyWeight(String bodyWeight) {
+        this.bodyWeight = bodyWeight;
     }
 
     public String getBornDate() {

@@ -87,12 +87,15 @@
             android:inputType="number"
             tools:layout_weight="1" />
 
-        <Button
+        <Button  style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/btn_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="0.3"
+            android:textSize="15sp"
+
+
             android:text="등록" />
     </LinearLayout>
 

@@ -18,6 +18,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -44,6 +48,7 @@ public class ResultActivity3 extends AppCompatActivity {
     private Button main;
 
 
+
     private ArrayList<String> matchFoods = new ArrayList<String>();
     private ArrayList<String> matchFoods2 = new ArrayList<String>();
     private ArrayList<String> foodkcal = new ArrayList<String>();
@@ -57,6 +62,8 @@ public class ResultActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result3);
+
+
 
         ivImage = findViewById(R.id.iv_image);
         Answer = findViewById(R.id.Answer);
@@ -334,4 +341,6 @@ public class ResultActivity3 extends AppCompatActivity {
         finish();
 
     }
+
+
 }
