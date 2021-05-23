@@ -625,7 +625,7 @@ public class MainActivity extends Activity implements TextWatcher {
         try {
             Calendar current = Calendar.getInstance();
             int currentYear = current.get(Calendar.YEAR);
-            int currentMonth = current.get(Calendar.MONTH);
+            int currentMonth = current.get(Calendar.MONTH)+1;
             int currentDay = current.get(Calendar.DAY_OF_MONTH);
             database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
             databaseReference = database.getReference(userUID); // DB 테이블 연결
@@ -656,11 +656,12 @@ public class MainActivity extends Activity implements TextWatcher {
                             spy.add(userName);
                             int birthYear = Integer.valueOf(bornDate.substring(0,4));
                             int birthMonth = Integer.valueOf(bornDate.substring(5,7));
-                            int birthDay = Integer.valueOf(bornDate.substring(8,9));
+                            int birthDay = Integer.valueOf(bornDate.substring(8,10));
                             age = currentYear-birthYear;
-                            if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay){
-                                age--;
+                            if (birthMonth * 100 + birthDay >= currentMonth * 100 + currentDay){
+                                age = currentYear-birthYear-1;
                             }
+                            Log.d("Lee", String.valueOf(birthMonth * 100 + birthDay) + String.valueOf(currentMonth * 100 + currentDay));
                             Double bmi =  Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100)) ;
                              bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
                                     :String.format("%.2f",(665.1+(9.56*Double.valueOf(bodyWeight) )+(1.85*Double.valueOf(bodyLength)) - (4.68 * Double.valueOf(age))));

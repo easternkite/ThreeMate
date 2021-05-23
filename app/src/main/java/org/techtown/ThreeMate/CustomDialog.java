@@ -82,17 +82,7 @@ public class CustomDialog extends Dialog{
 
 
     private DatePickerDialog datePickerDialog;
-    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, month);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            date = year+"/"+month+"/"+dayOfMonth;
-            updateLabel();
-        }
-    };
 
 
     @Override
@@ -134,47 +124,47 @@ public class CustomDialog extends Dialog{
         bodyLength = findViewById(R.id.bodyLength);
         bodyWeight = findViewById(R.id.bodyWeight);
 
-            database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-            databaseReference = database.getReference(userUID); // DB 테이블 연결
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                        User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                        if (user.getUserName() != null){
-                            userUID1 = user.getUserUID();
-                            userName1 = user.getUserName();
-                            userProfile1 = user.getUserProfile();;
-                            userEmail1 = user.getUserEmail();
-                            bornDate1 = user.getBornDate();
-                            gender1 = user.getGender();
-                            bodyLength1= user.getBodyLength();
-                            bodyWeight1 = user.getBodyWeight();
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        databaseReference = database.getReference(userUID); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    if (user.getUserName() != null){
+                        userUID1 = user.getUserUID();
+                        userName1 = user.getUserName();
+                        userProfile1 = user.getUserProfile();;
+                        userEmail1 = user.getUserEmail();
+                        bornDate1 = user.getBornDate();
+                        gender1 = user.getGender();
+                        bodyLength1= user.getBodyLength();
+                        bodyWeight1 = user.getBodyWeight();
 
-                            bornDate.setText(bornDate1);
-                            if (gender1.equals("남")){
-                                genderMale.setChecked(true);
-                            }else {
-                                genderFemale.setChecked(true);
-                            }
-                            bodyLength.setText(bodyLength1);
-                            bodyWeight.setText(bodyWeight1);
-                            button.setText("수정");
-
+                        bornDate.setText(bornDate1);
+                        if (gender1.equals("남")){
+                            genderMale.setChecked(true);
+                        }else {
+                            genderFemale.setChecked(true);
                         }
-
+                        bodyLength.setText(bodyLength1);
+                        bodyWeight.setText(bodyWeight1);
+                        button.setText("수정");
 
                     }
 
+
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // 디비를 가져오던중 에러 발생 시
-                    Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-                }
-            });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
 
 
 
@@ -182,25 +172,41 @@ public class CustomDialog extends Dialog{
         bornDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePickerDialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                if (!bornDate.getText().toString().equals("") || !bornDate.getText().toString().equals(null)){
+                    String getYear = bornDate.getText().toString().substring(0,4);
+                    String getMonth = bornDate.getText().toString().substring(5,7);
+                    String getDay = bornDate.getText().toString().substring(8,10);
+                    datePickerDialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                        // TODO Auto-generated method stub
+                            // TODO Auto-generated method stub
 
-                        try {
                             myCalendar.set(Calendar.YEAR, year);
                             myCalendar.set(Calendar.MONTH, monthOfYear);
                             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                             date = year+"/"+monthOfYear+"/"+dayOfMonth;
                             updateLabel();
-                        } catch (Exception e) {
-
-                            // TODO: handle exception
-                            e.printStackTrace();
                         }
-                    }
-                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                    }, Integer.parseInt( getYear),Integer.parseInt(getMonth)-1, Integer.parseInt(getDay));
+
+                }else {
+                    datePickerDialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                            // TODO Auto-generated method stub
+
+                            myCalendar.set(Calendar.YEAR, year);
+                            myCalendar.set(Calendar.MONTH, monthOfYear);
+                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            date = year+"/"+monthOfYear+"/"+dayOfMonth;
+                            updateLabel();
+                           
+                        }
+                    }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+
+                }
 
 
                 datePickerDialog.getDatePicker().setCalendarViewShown(false);
@@ -265,7 +271,7 @@ public class CustomDialog extends Dialog{
                 gender = "남";
             }
             else if(i == R.id.gender_female){
-              gender = "여";
+                gender = "여";
             }
         }
     };
