@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -68,6 +69,11 @@ public class MainActivity extends Activity implements TextWatcher {
     private TextView tv;
     private Button search;
     private GpsTracker gpsTracker;
+    private TextView tv_age;
+    private TextView tv_bmi;
+    private TextView tv_bmr;
+
+
     MapPOIItem marker = new MapPOIItem();
     private ArrayList<String> matchFoods = new ArrayList<String>();
     private ArrayList<String> matchFoods2 = new ArrayList<String>();
@@ -108,7 +114,8 @@ public class MainActivity extends Activity implements TextWatcher {
     private Button btn_logout;
     private CircleImageView iv_profile;
     private TextView tv_nickname;
-    private String age;
+    private int age;
+    private String bmr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +144,9 @@ public class MainActivity extends Activity implements TextWatcher {
         String address = getCurrentAddress(latitude, longitude);
 
         cv_userInfo = findViewById(R.id.cv_userInfo);
+        tv_age = findViewById(R.id.tv_age);
+        tv_bmi = findViewById(R.id.tv_bmi);
+        tv_bmr = findViewById(R.id.tv_bmr);
         tv_userInfo = findViewById(R.id.tv_userInfo);
         tv_nickname = findViewById(R.id.tv_nickname);
         iv_profile = findViewById(R.id.iv_profile);
@@ -244,6 +254,7 @@ public class MainActivity extends Activity implements TextWatcher {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Diary.class);
+
                 startActivity(intent);
             }
         });
@@ -614,6 +625,8 @@ public class MainActivity extends Activity implements TextWatcher {
         try {
             Calendar current = Calendar.getInstance();
             int currentYear = current.get(Calendar.YEAR);
+            int currentMonth = current.get(Calendar.MONTH);
+            int currentDay = current.get(Calendar.DAY_OF_MONTH);
             database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
             databaseReference = database.getReference(userUID); // DB 테이블 연결
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -641,12 +654,35 @@ public class MainActivity extends Activity implements TextWatcher {
                                     bodyWeight);
 
                             spy.add(userName);
-                            age = String.valueOf(currentYear-Integer.valueOf(bornDate.substring(0,4)) + 1);
-                            String bmi = String.format("%.2f" ,Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100))) ;
-                            String bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
+                            int birthYear = Integer.valueOf(bornDate.substring(0,4));
+                            int birthMonth = Integer.valueOf(bornDate.substring(5,7));
+                            int birthDay = Integer.valueOf(bornDate.substring(8,9));
+                            age = currentYear-birthYear;
+                            if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay){
+                                age--;
+                            }
+                            Double bmi =  Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100)) ;
+                             bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
                                     :String.format("%.2f",(665.1+(9.56*Double.valueOf(bodyWeight) )+(1.85*Double.valueOf(bodyLength)) - (4.68 * Double.valueOf(age))));
                             Log.d("Lee", bodyWeight+ String.valueOf((Double.valueOf(bodyLength)/10) *  (Double.valueOf(bodyLength)/10)) );
+                            if (bmi > 26.35){
+                                tv_bmi.setText("BMI : " + String.format("%.2f",bmi) + "(비만)");
+                                tv_bmi.setTextColor(Color.parseColor("#BA78D9"));
+                            }else if (bmi >23.32){
+                                tv_bmi.setText("BMI : " + String.format("%.2f",bmi) + "(과체중)");
+                                tv_bmi.setTextColor(Color.parseColor("#787AD6"));
+                            }else if (bmi > 15.35){
+                                tv_bmi.setText("BMI : " + String.format("%.2f",bmi) + "(정상)");
+                                tv_bmi.setTextColor(Color.parseColor("#557CD5"));
+                            }else{
+                                tv_bmi.setText("BMI : " + String.format("%.2f",bmi) + "(저체중)");
+                                tv_bmi.setTextColor(Color.parseColor("#7DA4BD"));
+                            }
+
                             tv_userInfo.setText("   Age : " + age + " / BMI : " + bmi + " / BMR : " + bmr + "kcal" );
+                            tv_age.setText("Age : " + age + "세");
+
+                            tv_bmr.setText("BMR : " + bmr + "kcal");
                             tv_nickname.setText(userName);
                             Glide.with(getApplicationContext()).load(valueOf(userProfile)).into(iv_profile);
 

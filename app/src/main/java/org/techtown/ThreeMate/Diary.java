@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,8 +42,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -79,6 +83,7 @@ public class Diary extends AppCompatActivity {
     private ImageView pictureImageView;
     int selectedPhotoMenu;
 
+
     File file;
     Bitmap resultPhotoBitmap;
     private String myFormat = "yyyy-MM-dd";    // 출력형식   2018/11/28
@@ -90,6 +95,7 @@ public class Diary extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     public SQLiteManager sqLiteManager;
     private TextView calories_remaining_number;
+    private TextView calories_remaining_number2;
     private Button main_btn;
     private Button btn_upload2;
     private Button DateUp;
@@ -116,7 +122,6 @@ public class Diary extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-    private String userUID;
     private String time;
     RecyclerView recyclerView;
     FoodAdapter adapter2;
@@ -124,6 +129,17 @@ public class Diary extends AppCompatActivity {
     private StorageReference storageRef;
     private Uri filePath;
     private String stringUri;
+    private String userUID;
+    private String userName;
+    private String userProfile;
+    private String userEmail;
+    private String bornDate;
+    private String gender;
+    private String bodyLength;
+    private String bodyWeight;
+    private int age;
+    private String bmr;
+
 
 
     SearchActivity MA = (SearchActivity) SearchActivity.activity;
@@ -215,6 +231,8 @@ public class Diary extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         calories_remaining_number = findViewById(R.id.calories_remaining_number);
+        calories_remaining_number2 = findViewById(R.id.calories_remaining_number2);
+
         main_btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -469,7 +487,9 @@ public class Diary extends AppCompatActivity {
 
 
         resultText = (TextView) findViewById(R.id.calories_remaining_number);
-        updateList();
+        firebaseUpdate();
+
+
         // 버튼을 눌렀을때 해야할 이벤트 작성
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -642,7 +662,7 @@ public class Diary extends AppCompatActivity {
         idIndicator2.clear();
         matchtime.clear();
         sum=0;
-        resultText.setText(Double.toString(0)+ " kcal");
+        resultText.setText(Double.toString(0));
         ArrayList<JSONObject> array = sqLiteManager.getResult(textView.getText().toString()); // DB의 내용을 배열단위로 모두 가져온다
         try{
 
@@ -676,8 +696,12 @@ public class Diary extends AppCompatActivity {
 
                 idIndicator = id;
                 sum += Double.parseDouble(kcal);
-                resultText.setText(Double.toString(sum)+ " kcal");
-
+                resultText.setText(Double.toString(sum));
+                if (Double.valueOf(sum) > Double.parseDouble(bmr)){
+                    resultText.setTextColor(Color.parseColor("#FF5A5A"));
+                } else {
+                    resultText.setTextColor(getResources().getColor(R.color.my_green));
+                }
             }
             Log.d("Lee", String.valueOf(sum + "kcal"));
 
@@ -845,6 +869,73 @@ public class Diary extends AppCompatActivity {
         }
 
     }
+    private void firebaseUpdate(){
+        Calendar current = Calendar.getInstance();
+        int currentYear = current.get(Calendar.YEAR);
+        int currentMonth = current.get(Calendar.MONTH);
+        int currentDay = current.get(Calendar.DAY_OF_MONTH);
 
+
+
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+        databaseReference = database.getReference(userUID); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    if (user.getBodyLength() != null){
+                        userUID = user.getUserUID();
+                        userName = user.getUserName();
+                        userProfile = user.getUserProfile();;
+                        userEmail = user.getUserEmail();
+                        bornDate = user.getBornDate();
+                        gender = user.getGender();
+                        bodyLength= user.getBodyLength();
+                        bodyWeight = user.getBodyWeight();
+
+
+
+
+                        int birthYear = Integer.valueOf(bornDate.substring(0,4));
+                        int birthMonth = Integer.valueOf(bornDate.substring(5,7));
+                        int birthDay = Integer.valueOf(bornDate.substring(8,9));
+                        age = currentYear-birthYear;
+                        if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay){
+                            age--;
+                        }
+
+                        Double bmi =  Double.valueOf(bodyWeight) / ((Double.valueOf(bodyLength)/100) *  (Double.valueOf(bodyLength)/100)) ;
+                        bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
+                                :String.format("%.2f",(665.1+(9.56*Double.valueOf(bodyWeight) )+(1.85*Double.valueOf(bodyLength)) - (4.68 * Double.valueOf(age))));
+                        Log.d("Lee", bodyWeight+ String.valueOf((Double.valueOf(bodyLength)/10) *  (Double.valueOf(bodyLength)/10)) );
+
+                        calories_remaining_number2.setText(" / " + String.format("%.1f",Double.parseDouble(bmr)) + "kcal");
+
+                        updateList();
+                        LayoutAnimationController controller = new LayoutAnimationController(set, 0.17f);
+                        recyclerView.setLayoutAnimation(controller);
+                    }else{
+
+
+
+                    }
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+
+
+    }
 }
 
