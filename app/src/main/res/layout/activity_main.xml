@@ -84,12 +84,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_userInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -109,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="3dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -125,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="3dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -141,9 +135,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="3dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_exer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="일일 권장 칼로리 불러오는 중..." />
+
+            <TextView
+                android:id="@+id/tv_userInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

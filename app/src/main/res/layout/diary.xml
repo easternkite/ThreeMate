@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/calories_remaining_number"
                     android:layout_marginStart="16dp"
-                    android:text="일일 섭취 열량 / 일일 기초대사량(BMR)"
+                    android:text="일일 섭취 열량 / 일일 권장 칼로리(BMR * 운동량)"
                     android:textColor="#FFAAAAAA"
                     android:textSize="12sp" />
 

@@ -137,8 +137,10 @@ public class Diary extends AppCompatActivity {
     private String gender;
     private String bodyLength;
     private String bodyWeight;
+    private String exer;
     private int age;
     private String bmr;
+    private String dailyKcal;
 
 
 
@@ -368,7 +370,7 @@ public class Diary extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView);
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate2.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -697,7 +699,7 @@ public class Diary extends AppCompatActivity {
                 idIndicator = id;
                 sum += Double.parseDouble(kcal);
                 resultText.setText(Double.toString(sum));
-                if (Double.valueOf(sum) > Double.parseDouble(bmr)){
+                if (Double.valueOf(sum) > Double.parseDouble(dailyKcal)){
                     resultText.setTextColor(Color.parseColor("#FF5A5A"));
                 } else {
                     resultText.setTextColor(getResources().getColor(R.color.my_green));
@@ -894,6 +896,7 @@ public class Diary extends AppCompatActivity {
                         gender = user.getGender();
                         bodyLength= user.getBodyLength();
                         bodyWeight = user.getBodyWeight();
+                        exer = user.getExercise();
 
 
 
@@ -910,8 +913,22 @@ public class Diary extends AppCompatActivity {
                         bmr = gender.equals("남")?String.format("%.2f",(66.47+(13.75*Double.valueOf(bodyWeight) )+(5*Double.valueOf(bodyLength)) - (6.76 * Double.valueOf(age))))
                                 :String.format("%.2f",(665.1+(9.56*Double.valueOf(bodyWeight) )+(1.85*Double.valueOf(bodyLength)) - (4.68 * Double.valueOf(age))));
                         Log.d("Lee", bodyWeight+ String.valueOf((Double.valueOf(bodyLength)/10) *  (Double.valueOf(bodyLength)/10)) );
+                        switch (Integer.parseInt(exer)){
+                            case 1:
+                                dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.3) ;
+                                break;
+                            case 2:
+                                dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.55) ;
+                                break;
+                            case 3:
+                                dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.7) ;
+                                break;
+                            case 4:
+                                dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.9) ;
+                                break;
+                        }
 
-                        calories_remaining_number2.setText(" / " + String.format("%.1f",Double.parseDouble(bmr)) + "kcal");
+                        calories_remaining_number2.setText(" / " + String.format("%.1f",Double.parseDouble(dailyKcal)) + "kcal");
 
                         updateList();
                         LayoutAnimationController controller = new LayoutAnimationController(set, 0.17f);

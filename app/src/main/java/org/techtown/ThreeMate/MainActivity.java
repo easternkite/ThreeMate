@@ -74,6 +74,7 @@ public class MainActivity extends Activity implements TextWatcher {
     private TextView tv_age;
     private TextView tv_bmi;
     private TextView tv_bmr;
+    private TextView tv_exer;
     String url = "https://place.map.kakao.com/18992342";
 
     MapPOIItem marker = new MapPOIItem();
@@ -119,6 +120,8 @@ public class MainActivity extends Activity implements TextWatcher {
     private TextView tv_nickname;
     private int age;
     private String bmr;
+    private String exer;
+    private String dailyKcal;
 
     String msg = "0";
     String url2 = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+19";
@@ -133,7 +136,7 @@ public class MainActivity extends Activity implements TextWatcher {
 
 
 
-        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate2.db", null, 1);
+        sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate.db", null, 1);
         auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
         user = auth.getCurrentUser();
         userUID = user.getUid();
@@ -158,6 +161,7 @@ public class MainActivity extends Activity implements TextWatcher {
         tv_age = findViewById(R.id.tv_age);
         tv_bmi = findViewById(R.id.tv_bmi);
         tv_bmr = findViewById(R.id.tv_bmr);
+        tv_exer = findViewById(R.id.tv_exer);
         tv_userInfo = findViewById(R.id.tv_userInfo);
         tv_nickname = findViewById(R.id.tv_nickname);
         iv_profile = findViewById(R.id.iv_profile);
@@ -677,6 +681,7 @@ public class MainActivity extends Activity implements TextWatcher {
                             gender = user.getGender();
                             bodyLength= user.getBodyLength();
                             bodyWeight = user.getBodyWeight();
+                            exer = user.getExercise();
 
                             sqLiteManager.insertUser(
                                     userName,
@@ -684,7 +689,8 @@ public class MainActivity extends Activity implements TextWatcher {
                                     bornDate,
                                     gender,
                                     bodyLength,
-                                    bodyWeight);
+                                    bodyWeight,
+                                    exer);
 
                             spy.add(userName);
                             int birthYear = Integer.valueOf(bornDate.substring(0,4));
@@ -712,11 +718,28 @@ public class MainActivity extends Activity implements TextWatcher {
                                 tv_bmi.setText("BMI : " + String.format("%.2f",bmi) + "(저체중)");
                                 tv_bmi.setTextColor(Color.parseColor("#7DA4BD"));
                             }
-
+                            switch (Integer.parseInt(exer)){
+                                case 1:
+                                    dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.3) ;
+                                    break;
+                                case 2:
+                                    dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.55) ;
+                                    break;
+                                case 3:
+                                    dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.7) ;
+                                    break;
+                                case 4:
+                                    dailyKcal =String.format("%.2f",Double.parseDouble(bmr) * 1.9) ;
+                                    break;
+                            }
                             tv_userInfo.setText("   Age : " + age + " / BMI : " + bmi + " / BMR : " + bmr + "kcal" );
                             tv_age.setText("Age : " + age + "세");
 
                             tv_bmr.setText("BMR : " + bmr + "kcal");
+
+
+                            tv_exer.setText( "※ "+ userName + "님의 일일 권장 칼로리는 " + dailyKcal + "kcal 입니다.");
+
                             tv_nickname.setText(userName);
                             Glide.with(getApplicationContext()).load(valueOf(userProfile)).into(iv_profile);
 
@@ -775,7 +798,7 @@ public class MainActivity extends Activity implements TextWatcher {
         progressDialog.show();
 
 
-        sqLiteManager = new SQLiteManager(this, "ThreeMate2.db", null, 1);
+        sqLiteManager = new SQLiteManager(this, "ThreeMate.db", null, 1);
 
 
 

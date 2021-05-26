@@ -45,11 +45,18 @@ public class CustomDialog extends Dialog{
     private EditText bornDate;
     private RadioButton genderMale;
     private RadioButton genderFemale;
+    private RadioButton exer_1;
+    private RadioButton exer_2;
+    private RadioButton exer_3;
+    private RadioButton exer_4;
+
     private Button button;
     private RadioGroup radioGroup;
+    private RadioGroup radioGroup2;
     private EditText bodyLength;
     private EditText bodyWeight;
     private SQLiteManager sqLiteManager;
+
 
     /**
      * Fire Base 등장
@@ -68,11 +75,13 @@ public class CustomDialog extends Dialog{
     private String userProfile;
     private String userUID;;
     private String gender = " " ;
+    private String exer = " " ;
 
     private String userUID1;
     private String userProfile1;
     private String userName1;
     private String userEmail1;
+    private String exer1;
     private String gender1;
     private String bodyLength1;
     private String bodyWeight1;
@@ -94,7 +103,7 @@ public class CustomDialog extends Dialog{
 
         //다이얼로그의 배경을 투명으로 만든다.
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        sqLiteManager = new SQLiteManager(getContext(), "ThreeMate2.db", null, 1);
+        sqLiteManager = new SQLiteManager(getContext(), "ThreeMate.db", null, 1);
         /**
          * FireBase 인증 객체 초기화
          */
@@ -118,9 +127,17 @@ public class CustomDialog extends Dialog{
 
         genderMale = (RadioButton) findViewById(R.id.gender_male);
         genderFemale = (RadioButton) findViewById(R.id.gender_female);
+        exer_1 = (RadioButton) findViewById(R.id.exer_1);
+        exer_2 = (RadioButton) findViewById(R.id.exer_2);
+        exer_3 = (RadioButton) findViewById(R.id.exer_3);
+        exer_4 = (RadioButton) findViewById(R.id.exer_4);
         button = (Button) findViewById(R.id.btn_input);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
+
+        radioGroup2 = (RadioGroup) findViewById(R.id.radioGroup2);
+        radioGroup2.setOnCheckedChangeListener(radioGroupButtonChangeListener);
+
         bodyLength = findViewById(R.id.bodyLength);
         bodyWeight = findViewById(R.id.bodyWeight);
 
@@ -141,6 +158,7 @@ public class CustomDialog extends Dialog{
                         gender1 = user.getGender();
                         bodyLength1= user.getBodyLength();
                         bodyWeight1 = user.getBodyWeight();
+                        exer1 = user.getExercise();
 
                         bornDate.setText(bornDate1);
                         if (gender1.equals("남")){
@@ -152,6 +170,15 @@ public class CustomDialog extends Dialog{
                         bodyWeight.setText(bodyWeight1);
                         button.setText("수정");
 
+                        if (exer1.equals("1")){
+                            exer_1.setChecked(true);
+                        }else if (exer1.equals("2")){
+                            exer_2.setChecked(true);
+                        }else if (exer1.equals("3")){
+                            exer_3.setChecked(true);
+                        }else if (exer1.equals("4")){
+                            exer_4.setChecked(true);
+                        }
                     }
 
 
@@ -172,7 +199,7 @@ public class CustomDialog extends Dialog{
         bornDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bornDate.getText().toString().equals("") || !bornDate.getText().toString().equals(null)){
+                if (!bornDate.getText().toString().equals("")){
                     String getYear = bornDate.getText().toString().substring(0,4);
                     String getMonth = bornDate.getText().toString().substring(5,7);
                     String getDay = bornDate.getText().toString().substring(8,10);
@@ -231,7 +258,7 @@ public class CustomDialog extends Dialog{
                             bornDate.getText().toString(),
                             gender,
                             bodyLength.getText().toString(),
-                            bodyWeight.getText().toString());
+                            bodyWeight.getText().toString(),exer);
                     /**
                      * insert data to FireBase Realtime DB
                      */
@@ -241,7 +268,8 @@ public class CustomDialog extends Dialog{
                             userEmail,
                             gender,
                             bornDate.getText().toString(),bodyLength.getText().toString(),
-                            bodyWeight.getText().toString());
+                            bodyWeight.getText().toString(),
+                            exer);
 
 
 
@@ -273,6 +301,18 @@ public class CustomDialog extends Dialog{
             else if(i == R.id.gender_female){
                 gender = "여";
             }
+            if(i == R.id.exer_1){
+                exer = "1";
+            }
+            else if(i == R.id.exer_2){
+                exer = "2";
+            }else if(i == R.id.exer_3){
+                exer = "3";
+            }else if(i == R.id.exer_4){
+            exer = "4";
+        }
+
+
         }
     };
 
@@ -281,10 +321,10 @@ public class CustomDialog extends Dialog{
         this.context = mContext;
     }
 
-    public void writeNewUser(String userUID, String userName , String userProfile, String userEmail,String bornDate,String gender, String bodyLength, String bodyWeight) {
-        User user = new User(userUID, userName, userProfile, userEmail, gender, bornDate, bodyLength, bodyWeight);
+    public void writeNewUser(String userUID, String userName , String userProfile, String userEmail,String bornDate,String gender, String bodyLength, String bodyWeight, String exercise) {
+        User user = new User(userUID, userName, userProfile, userEmail, gender, bornDate, bodyLength, bodyWeight,exercise);
 
         databaseReference.child("UserInfo").setValue(user);
-        sqLiteManager.insertUser(userName,userProfile,bornDate,gender,bodyLength,bodyWeight);
+        sqLiteManager.insertUser(userName,userProfile,bornDate,gender,bodyLength,bodyWeight,exercise);
     }
 }

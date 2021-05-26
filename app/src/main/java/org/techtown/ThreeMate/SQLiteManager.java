@@ -21,7 +21,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + tableName + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, kcal TEXT, carbs TEXT, protein TEXT, fat TEXT, date TEXT, url TEXT, time TEXT);");
-        db.execSQL("CREATE TABLE " + tableNameUser + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT,userProfile TEXT,bornDate TEXT, gender TEXT, bodyLength TEXT, bodyWeight TEXT);");
+        db.execSQL("CREATE TABLE " + tableNameUser + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT,userProfile TEXT,bornDate TEXT, gender TEXT, bodyLength TEXT, bodyWeight TEXT, exer TEXT);");
     }
 
     @Override
@@ -47,9 +47,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
 
 
-    public void insertUser(String userName,String userProfile, String bornDate, String gender, String bodyLength, String bodyWeight) {
+    public void insertUser(String userName,String userProfile, String bornDate, String gender, String bodyLength, String bodyWeight, String exer) {
         SQLiteDatabase db = getWritableDatabase();
-        String query = "INSERT INTO " + tableNameUser + " SELECT null, '" + userName + "','" + userProfile + "', '" + bornDate + "','" + gender + "','" + bodyLength + "','" + bodyWeight + "'  WHERE NOT EXISTS (SELECT * FROM " +  tableNameUser + " WHERE userName = '" + userName + "')";
+        String query = "INSERT INTO " + tableNameUser + " SELECT null, '" + userName + "','" + userProfile + "', '" + bornDate + "','" + gender + "','" + bodyLength + "','" + bodyWeight + "','" + exer + "'  WHERE NOT EXISTS (SELECT * FROM " +  tableNameUser + " WHERE userName = '" + userName + "')";
         //String query = "INSERT INTO " + tableName + " VALUES(null,'" + userName + "', '" + title + "', '" + contents+ "', '" + profile+ "', '" + date + "', '" + time + "', '" + address + "') WHERE NOT EXISTS (SELECT * FROM " + tableName + " WHERE date = '" + date + "' AND time = '" + time + ");";
         db.execSQL(query);
     }
@@ -175,6 +175,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 jsonObject.put("gender",cursor.getString(4));
                 jsonObject.put("bodyLength",cursor.getString(5));
                 jsonObject.put("bodyWeight",cursor.getString(6));
+                jsonObject.put("exer",cursor.getString(7));
                 array.add(jsonObject);
             }
         }
