@@ -9,6 +9,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -72,7 +74,7 @@ public class MainActivity extends Activity implements TextWatcher {
     private TextView tv_age;
     private TextView tv_bmi;
     private TextView tv_bmr;
-
+    String url = "https://place.map.kakao.com/18992342";
 
     MapPOIItem marker = new MapPOIItem();
     private ArrayList<String> matchFoods = new ArrayList<String>();
@@ -86,6 +88,7 @@ public class MainActivity extends Activity implements TextWatcher {
     private ArrayList<String> road_address_name = new ArrayList<String>();
     private ArrayList<String> x = new ArrayList<String>();
     private ArrayList<String> y = new ArrayList<String>();
+    private ArrayList<String> matchScore = new ArrayList<String>();
     String data;
     private String name2;
     private String image;
@@ -116,10 +119,18 @@ public class MainActivity extends Activity implements TextWatcher {
     private TextView tv_nickname;
     private int age;
     private String bmr;
+
+    String msg = "0";
+    String url2 = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%BD%94%EB%A1%9C%EB%82%98+19";
+    String ii = ".message_area";
+    final Bundle bundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
 
         sqLiteManager = new SQLiteManager(getApplicationContext(), "ThreeMate2.db", null, 1);
@@ -282,82 +293,101 @@ public class MainActivity extends Activity implements TextWatcher {
             }
         });
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                data = request("FD6", 1, latitude, longitude);
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+
+                            placeName.clear();
+                            categoryName.clear();
+                            address_name.clear();
+                            phone.clear();
+                            place_url.clear();
+                            road_address_name.clear();
+                            y.clear();
+                            x.clear();
+                            matchScore.clear();
+                            JSONObject json = new JSONObject(data);
+                            JSONArray array = new JSONArray(json.getString("documents"));
+
+                            for (int idx = 0; idx < array.length(); idx++) {
+                                JSONObject object = new JSONObject(array.get(idx).toString());
+                                String name = object.getString("place_name");
+                                String address = object.getString("address_name");
+                                String category_name = object.getString("category_name");
+                                String call = object.getString("phone");
+                                String url = object.getString("place_url");
+                                String roadAddress = object.getString("road_address_name");
+                                String longitude = object.getString("x");
+                                String latitude = object.getString("y");
+
+                                placeName.add(name);
+                                address_name.add(address);
+                                phone.add(call);
+                                place_url.add(url);
+                                road_address_name.add(roadAddress);
+                                categoryName.add(category_name);
+                                x.add(longitude);
+                                y.add(latitude);
+
+
+
+
+
+
+
+
+
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                });
+
+            }
+
+        }).start();
+
+
+
         mapbtn = findViewById(R.id.button3);
         mapbtn.setOnClickListener(new View.OnClickListener() {
             //지도 실행
             @Override
             public void onClick(View view) {
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
 
 
-                        data = request("FD6", 1, latitude, longitude);
-
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                try {
-
-                                    placeName.clear();
-                                    categoryName.clear();
-                                    address_name.clear();
-                                    phone.clear();
-                                    place_url.clear();
-                                    road_address_name.clear();
-                                    y.clear();
-                                    x.clear();
-                                    JSONObject json = new JSONObject(data);
-                                    JSONArray array = new JSONArray(json.getString("documents"));
-
-                                    for (int idx = 0; idx < array.length(); idx++) {
-                                        JSONObject object = new JSONObject(array.get(idx).toString());
-                                        String name = object.getString("place_name");
-                                        String address = object.getString("address_name");
-                                        String category_name = object.getString("category_name");
-                                        String call = object.getString("phone");
-                                        String url = object.getString("place_url");
-                                        String roadAddress = object.getString("road_address_name");
-                                        String longitude = object.getString("x");
-                                        String latitude = object.getString("y");
-
-                                        placeName.add(name);
-                                        address_name.add(address);
-                                        phone.add(call);
-                                        place_url.add(url);
-                                        road_address_name.add(roadAddress);
-                                        categoryName.add(category_name);
-                                        x.add(longitude);
-                                        y.add(latitude);
-                                    }
-
-                                    Intent myIntent = new Intent(MainActivity.this, MenuMap.class);
-                                    myIntent.putExtra("placeName", placeName);
-                                    myIntent.putExtra("address_name", address_name);
-                                    myIntent.putExtra("phone", phone);
-                                    myIntent.putExtra("place_url", place_url);
-                                    myIntent.putExtra("road_address_name", road_address_name);
-                                    myIntent.putExtra("categoryName", categoryName);
-                                    myIntent.putExtra("x", x);
-                                    myIntent.putExtra("y", y);
-
-                                    startActivity(myIntent);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-                        });
-                    }
-                }).start();
-
-
-
+                Intent myIntent = new Intent(MainActivity.this, MenuMap.class);
+                myIntent.putExtra("placeName", placeName);
+                myIntent.putExtra("address_name", address_name);
+                myIntent.putExtra("phone", phone);
+                myIntent.putExtra("place_url", place_url);
+                myIntent.putExtra("road_address_name", road_address_name);
+                myIntent.putExtra("categoryName", categoryName);
+                myIntent.putExtra("x", x);
+                myIntent.putExtra("y", y);
+                myIntent.putExtra("matchScore", matchScore);
+                startActivity(myIntent);
             }
+
+
         });
         mapbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -615,6 +645,9 @@ public class MainActivity extends Activity implements TextWatcher {
         return output.toString();
 
     }
+
+
+
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
      */
@@ -780,9 +813,40 @@ public class MainActivity extends Activity implements TextWatcher {
 
 
                 }
+                /*
+                new Thread(){
+                    @Override
+                    public void run() {
+                        Document doc = null;
+
+                        try {
+                            for (int i = 0 ; i < placeName.size();i++){
+                                doc = Jsoup.connect("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + placeName.get(i)).get();
+                                Elements elements = doc.select(".score");
+                                if (elements.size()>0 ){
+                                    msg = elements.first().text();
+                                    matchScore.add(msg.substring(0,4));
+                                    //bundle.putString("message",msg);
+                                    //Message msg = handler.obtainMessage();
+                                    //msg.setData(bundle);
+                                    //handler.sendMessage(msg);
+                                    Log.d("Lee",placeName.get(i)+ ": 의 평점 : "+msg);
+                                }else{
+                                    matchScore.add("0.00".substring(0,4));
+                                    Log.d("Lee",placeName.get(i)+ ": 의 평점 : "+"0.00");
+                                }
+                            }
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+
+                 */
 
                 progressDialog.dismiss();
-
             }
 
             @Override
@@ -793,5 +857,12 @@ public class MainActivity extends Activity implements TextWatcher {
         });
 
     }
-
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            Bundle bundle = msg.getData();
+           //matchScore.add(bundle.getString("message").substring(0,4));
+            Log.d("Lee",bundle.getString("message").substring(0,4)+ ": ㅇㅆ음");
+        }
+    };
 }

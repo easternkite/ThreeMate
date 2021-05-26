@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -62,7 +63,16 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
     private int rtOn = 1;
     private int cfOn = 0;
     private int csOn = 0;
-    MapPOIItem marker = new MapPOIItem();
+    ArrayList<String> placeName ;
+    ArrayList<String> categoryName ;
+    ArrayList<String> phone;
+    ArrayList<String> place_url ;
+    ArrayList<String> address_name ;
+    ArrayList<String> road_address_name;
+    ArrayList<String> x ;
+    ArrayList<String> y ;
+    ArrayList<String> matchScore ;
+    final String[] words = new String[] {"정보","전화걸기"};
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -74,18 +84,24 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menumap);
 
+
+
+
+
         Intent intent = getIntent();
-        final ArrayList<String> placeName = (ArrayList<String>) intent.getSerializableExtra("placeName");
-        final ArrayList<String> categoryName = (ArrayList<String>) intent.getSerializableExtra("categoryName");
-        final ArrayList<String> phone = (ArrayList<String>) intent.getSerializableExtra("phone");
-        final ArrayList<String> place_url = (ArrayList<String>) intent.getSerializableExtra("place_url");
-        final ArrayList<String> address_name = (ArrayList<String>) intent.getSerializableExtra("address_name");
-        final ArrayList<String> road_address_name = (ArrayList<String>) intent.getSerializableExtra("road_address_name");
-        final ArrayList<String> x = (ArrayList<String>) intent.getSerializableExtra("x");
-        final ArrayList<String> y = (ArrayList<String>) intent.getSerializableExtra("y");
+        placeName = (ArrayList<String>) intent.getSerializableExtra("placeName");
+       categoryName = (ArrayList<String>) intent.getSerializableExtra("categoryName");
+       phone = (ArrayList<String>) intent.getSerializableExtra("phone");
+            place_url = (ArrayList<String>) intent.getSerializableExtra("place_url");
+        address_name = (ArrayList<String>) intent.getSerializableExtra("address_name");
+        road_address_name = (ArrayList<String>) intent.getSerializableExtra("road_address_name");
+        x = (ArrayList<String>) intent.getSerializableExtra("x");
+        y = (ArrayList<String>) intent.getSerializableExtra("y");
+        matchScore = (ArrayList<String>) intent.getSerializableExtra("matchScore");
         mMapView = (MapView) findViewById(R.id.map_view);
         //mMapView.setDaumMapApiKey(MapApiConst.DAUM_MAPS_ANDROID_APP_API_KEY);
         mMapView.setCurrentLocationEventListener(this);
+        mMapView.setPOIItemEventListener(poiItemEventListener);
         textView = findViewById(R.id.textView);
         final Button button = findViewById(R.id.button);
         final Button button2 = findViewById(R.id.button2);
@@ -100,11 +116,11 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
         adapter = new PersonAdapter();
         adapter.setOnItemClickListener(new OnPersonItemClickListener() {
             @Override
-            public void onItemClick(PersonAdapter.ViewHolder holder, View view, final int position) {
+            public void onItemClick(PersonAdapter.ViewHolder holder, View view,  int position) {
                 MapPOIItem[] mapPOIItems = mMapView.getPOIItems();
-                final Item item = adapter.getItem(position);
-                mMapView.selectPOIItem(mapPOIItems[5],true);
-                Log.d("LEE", String.valueOf(mapPOIItems.length));
+                Item item = adapter.getItem(position);
+                mMapView.selectPOIItem(mapPOIItems[position],true);
+
 
 /*
                 androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MenuMap.this);
@@ -245,13 +261,14 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
                 final ArrayList<String> road_address_name = (ArrayList<String>) intent.getSerializableExtra("road_address_name");
                 final ArrayList<String> x = (ArrayList<String>) intent.getSerializableExtra("x");
                 final ArrayList<String> y = (ArrayList<String>) intent.getSerializableExtra("y");
+                final ArrayList<String> matchScore = (ArrayList<String>) intent.getSerializableExtra("matchScore");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mMapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2f));
                         for (int i = 0; i < placeName.size(); i++) {
                             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(y.get(i)), Double.parseDouble(x.get(i)));
-
+                            MapPOIItem marker = new MapPOIItem();
                             marker.setItemName(placeName.get(i));
                             marker.setTag(i);
                             marker.setMapPoint(mapPoint);
@@ -348,8 +365,10 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
 
                                 for (int i = 0; i < placeName.size(); i++) {
                                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(y.get(i)), Double.parseDouble(x.get(i)));
+                                    MapPOIItem marker = new MapPOIItem();
                                     marker.setItemName(placeName.get(i));
                                     marker.setTag(i);
+                                    ;
                                     marker.setMapPoint(mapPoint);
                                     marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
                                     marker.setCustomImageResourceId(R.drawable.custom_marker_fd);
@@ -451,6 +470,7 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
 
                                 for (int i = 0; i < placeName.size(); i++) {
                                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(y.get(i)), Double.parseDouble(x.get(i)));
+                                    MapPOIItem marker = new MapPOIItem();
                                     marker.setItemName(placeName.get(i));
                                     marker.setTag(i);
                                     marker.setMapPoint(mapPoint);
@@ -553,6 +573,7 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
 
                                 for (int i = 0; i < placeName.size(); i++) {
                                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(y.get(i)), Double.parseDouble(x.get(i)));
+                                    MapPOIItem marker = new MapPOIItem();
                                     marker.setItemName(placeName.get(i));
                                     marker.setTag(i);
                                     marker.setMapPoint(mapPoint);
@@ -857,7 +878,7 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
 
     @Override
     public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-        Toast.makeText(this, "터치됨", Toast.LENGTH_SHORT).show();
+     ;
     }
 
     @Override
@@ -867,8 +888,7 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-
-    }
+      }
 
     @Override
     public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
@@ -909,6 +929,54 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
     }
 
 
+
+    private MapView.POIItemEventListener poiItemEventListener = new MapView.POIItemEventListener() {
+        @Override
+        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+        }
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+
+        }
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+            new AlertDialog.Builder(MenuMap.this).setItems(words, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            Toast.makeText(getApplicationContext(), mapPOIItem.getItemName() + " 정보", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(place_url.get(mapPOIItem.getTag())));
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            if (phone.get(mapPOIItem.getTag()).equals(null)||phone.get(mapPOIItem.getTag()).equals("")){
+                                Toast.makeText(getApplicationContext(),"'" + mapPOIItem.getItemName()+ "' 업체의 전화번호를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), mapPOIItem.getItemName() + "에 전화걸기", Toast.LENGTH_SHORT).show();
+                                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone.get(mapPOIItem.getTag())));
+                                startActivity(intent2);
+                            }
+
+
+                    }
+
+                }
+            }).show();
+
+
+
+
+        }
+
+        @Override
+        public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+        }
+    };
 
 
 }
