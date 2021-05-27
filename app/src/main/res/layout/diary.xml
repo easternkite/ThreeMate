@@ -290,7 +290,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.8"
-                                android:src="@mipmap/ic_launcher_round" />
+                                android:src="@drawable/photo" />
                         </LinearLayout>
 
                     </TableRow>
