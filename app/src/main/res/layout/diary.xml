@@ -31,6 +31,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/chart_button"
+                android:layout_width="73dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="83dp"
+                android:background="@drawable/chartbtn"
+                android:text=""
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/date"
                 android:layout_width="150dp"
