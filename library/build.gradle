@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation 'androidx.core:core:1.1.0-alpha03'
-
+    implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0-beta01'
     implementation 'com.google.firebase:firebase-auth:21.0.1' // 파이어베이스 인증
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
     implementation 'com.google.firebase:firebase-analytics:19.0.0'

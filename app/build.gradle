@@ -6,12 +6,13 @@ android {
     buildToolsVersion "29.0.3"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "self.peterbetos.luckywheel"
+        applicationId "org.techtown.ThreeMate"
         minSdkVersion 21
         targetSdkVersion 29 //28
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a'
     }
 
     buildTypes {
@@ -34,6 +35,7 @@ dependencies {
     implementation project(path: ':library')
     implementation files('libs\\libDaumMapAndroid.jar')
     implementation 'androidx.cardview:cardview:1.0.0'
+
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.thorbenprimke:realm-searchview:0.9.1'
@@ -46,7 +48,7 @@ dependencies {
     // Declare the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database'
-
+    implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0-beta01'
     implementation 'com.google.firebase:firebase-auth:21.0.1' // 파이어베이스 인증
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1' // 파이어베이스 인증2
     implementation 'org.jsoup:jsoup:1.13.1'

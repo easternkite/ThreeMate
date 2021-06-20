@@ -35,12 +35,13 @@
                 android:id="@+id/chart_button"
                 android:layout_width="73dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="83dp"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/chartbtn"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/DateDown"
+                app:layout_constraintStart_toEndOf="@+id/main_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
