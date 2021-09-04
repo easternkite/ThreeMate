@@ -1,5 +1,7 @@
-![KakaoTalk_20201202_025510236](https://user-images.githubusercontent.com/83625797/132082312-dee6dc10-4215-4b38-bb6a-086ca922b217.png)
-# ThreeMate(쓰리 메이트)
+<img src="https://user-images.githubusercontent.com/83625797/132082312-dee6dc10-4215-4b38-bb6a-086ca922b217.png" width="200" >
+
+# ThreeMate(쓰리 메이트)  
+
 음식 메뉴 선정에 어려움을 겪는 1인 가구를 위해 만든 음식추천 모바일 앱.  
 스무고개 형식과 룰렛 형식의 음식추천, BMR, BMI, 일일 권장 칼로리 계산, 내 주변 음식점 찾기, 음식 사전 기능이 있다.
 
@@ -34,12 +36,29 @@
 * **P4** : KAKAO MAP API를 적용시켰지만 KAKAO 로고만 뜨고 지도는 표시 안되는 문제
 * **Sol4** : API구동을 위한 디버깅용 키 해시 등록을 하며 해결
 
-![크기변환 KakaoTalk_20210610_230221185](https://user-images.githubusercontent.com/83625797/132082301-10fe3515-a286-42cb-9898-9dbec11414f0.jpg)
-![크기변환 KakaoTalk_20210610_230221185_01](https://user-images.githubusercontent.com/83625797/132082302-27c991d9-d95c-438e-b1dc-7d79f75b7631.jpg)
-![크기변환 KakaoTalk_20210610_230221185_02](https://user-images.githubusercontent.com/83625797/132082304-6fed3a86-242b-4131-9e39-a182b0805ab5.jpg)
-![크기변환 KakaoTalk_20210610_230221185_03](https://user-images.githubusercontent.com/83625797/132082305-0e242505-9651-4866-b81a-34aca578076e.jpg)
-![크기변환 KakaoTalk_20210610_230221185_04](https://user-images.githubusercontent.com/83625797/132082307-690cf235-2d32-46df-bb02-68e5227295dd.jpg)
-![크기변환 KakaoTalk_20210610_230221185_05](https://user-images.githubusercontent.com/83625797/132082308-89496c21-cbea-4394-8393-31a0d42ca0ae.jpg)
-![크기변환 KakaoTalk_20210610_230221185_06](https://user-images.githubusercontent.com/83625797/132082309-cc46436e-40e4-46a8-824a-589b637fcc52.jpg)
-![크기변환 KakaoTalk_20210610_230221185_07](https://user-images.githubusercontent.com/83625797/132082310-c107de4f-fafc-4758-9335-a5bf524bff04.jpg)
+## Screen Shots
+### -Login  
+ <img src="https://user-images.githubusercontent.com/83625797/132082301-10fe3515-a286-42cb-9898-9dbec11414f0.jpg" width = "200">  
+ 
+### -Main  
+<img src="https://user-images.githubusercontent.com/83625797/132082302-27c991d9-d95c-438e-b1dc-7d79f75b7631.jpg" width= "200">  
+
+### -스무고개형 음식추천
+<img src="https://user-images.githubusercontent.com/83625797/132082304-6fed3a86-242b-4131-9e39-a182b0805ab5.jpg" width = "200">  
+
+### -룰렛형 음식추천
+<img src="https://user-images.githubusercontent.com/83625797/132082305-0e242505-9651-4866-b81a-34aca578076e.jpg" width = "200">
+
+### -음식 다이어리
+<img src="https://user-images.githubusercontent.com/83625797/132082308-89496c21-cbea-4394-8393-31a0d42ca0ae.jpg" width = "200">
+
+### -주변 음식점 찾기
+<img src="https://user-images.githubusercontent.com/83625797/132082309-cc46436e-40e4-46a8-824a-589b637fcc52.jpg" width = "200">
+
+### -음식 사전
+<img src="https://user-images.githubusercontent.com/83625797/132082310-c107de4f-fafc-4758-9335-a5bf524bff04.jpg" width = "200">
+
+
+
+
 
