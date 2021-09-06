@@ -122,29 +122,6 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
                 mMapView.selectPOIItem(mapPOIItems[position],true);
 
 
-/*
-                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(MenuMap.this);
-                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (item.phone.equals("")){
-                            Toast.makeText(getApplicationContext(), "죄송합니다. 해당 지점의 번호등록이 안 되어 있습니다.",Toast.LENGTH_LONG).show();
-                        }else {
-                            Intent tt = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+item.phone));
-                            startActivity(tt);
-                        }
-
-                    }
-                });
-                builder.setCancelable(true);
-                builder.setNegativeButton("아니오",null);
-                builder.setTitle("전화 연결");
-                builder.setMessage(item.place_name + "에 전화를 거시겠습니까?");
-                builder.show();
-
- */
-
-
             }
         });
 
@@ -555,14 +532,13 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
                                         y.add(latitude);
                                         adapter.addItem(new Item(R.drawable.icon_pz_3,placeName.get(idx), categoryName.get(idx), road_address_name.get(idx), phone.get(idx)));
                                         recyclerView.setAdapter(adapter);
-                                    /*    textView.append("- 건물명 : " + placeName.get(idx) + "\n" +
-                                                "- 주소 명 : " + address_name.get(idx) + "\n" +
-                                                "- 전화번호 : " + phone.get(idx) + "\n" +
-                                                "- URL : " + place_url.get(idx) + "\n" +
-                                                "- 도로명 주소 : " + road_address_name.get(idx) + "\n" +
-                                                "- 위도 : " + y.get(idx) + "\n" +
-                                                "- 경도 : " + x.get(idx) + "\n" + "\n");
-
+                                    /**    textView.append("- 건물명 : " + placeName.get(idx) + "\n" +
+                                      *          "- 주소 명 : " + address_name.get(idx) + "\n" +
+                                      *          "- 전화번호 : " + phone.get(idx) + "\n" +
+                                      *          "- URL : " + place_url.get(idx) + "\n" +
+                                      *          "- 도로명 주소 : " + road_address_name.get(idx) + "\n" +
+                                      *          "- 위도 : " + y.get(idx) + "\n" +
+                                      *          "- 경도 : " + x.get(idx) + "\n" + "\n");
                                      */
                                     }
 
@@ -839,7 +815,8 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
         StringBuilder output = new StringBuilder();
         String line = null;
         try {
-            URL url = new URL("http://dapi.kakao.com/v2/local/search/keyword.json?query=" + quary + "&category_group_code="+category_group_code+
+            URL url = new URL("http://dapi.kakao.com/v2/local/search/keyword.json?query=" + quary +
+                    "&category_group_code=" + category_group_code +
                     "&page=" + page + "&size=15&sort=distance" +
                     "&x=" + longitude + "&y=" + latitude);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -849,7 +826,6 @@ public class MenuMap extends AppCompatActivity implements Serializable, MapView.
                 conn.setRequestMethod("GET");
                 conn.setDoInput(true);
                 conn.addRequestProperty("Authorization", "KakaoAK " + MapApiConst.DAUM_MAPS_ANDROID_APP_API_KEY); //key값 설정
-                int resCode = conn.getResponseCode();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
                 while (true) {

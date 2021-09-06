@@ -348,33 +348,16 @@ public class MainActivity extends Activity implements TextWatcher {
                                 categoryName.add(category_name);
                                 x.add(longitude);
                                 y.add(latitude);
-
-
-
-
-
-
-
-
-
                             }
-
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 });
 
             }
 
         }).start();
-
-
 
         mapbtn = findViewById(R.id.button3);
         mapbtn.setOnClickListener(new View.OnClickListener() {

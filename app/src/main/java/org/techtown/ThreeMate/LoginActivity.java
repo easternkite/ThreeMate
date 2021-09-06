@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         iv_mark.startAnimation(animation2);    //애니메이션 시작
 
 
+        /** 만약 이미 로그인이 되어있는 상태라면?
+         * 바로 메인액티비티로 간다(자동 로그인) */
         if (user != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("nickName",user.getDisplayName());
@@ -115,8 +117,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                             Toast.makeText(LoginActivity.this, account.getDisplayName()+"님, 환영합니다!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("nickName",account.getGivenName());
-                            intent.putExtra("photoUrl",String.valueOf(account.getPhotoUrl())); // String.valueOf() 특정 자료형을 String 형태로 변환.
                             startActivity(intent);
                             finish();
                         } else { // 로그인이 실패했으면..

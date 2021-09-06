@@ -34,7 +34,6 @@ public class menuQuiz extends AppCompatActivity {
     private ArrayList<String> lst;
     private TextView txt_question;
     private int round = 0;
-    private String[] question = {"질문1", "질문2", "질문3"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,17 +76,6 @@ public class menuQuiz extends AppCompatActivity {
      */
     private Object generateQuestion(int round){
         try{
-           /* for (int i =0;i<question.length;i++) {
-                int j = (int) (Math.random() * question.length);
-                String tmp = "";
-
-                tmp = question[i];
-                question[i] = question[j];
-                question[j] = tmp;
-
-            }
-
-            */
             JSONObject json = new JSONObject(getJsonString(this));      // json 파일에 있는것을 Object형태로 변환
             JSONArray array = new JSONArray(json.getString("질문"));      // json 파일의 "질문"에 해당하는 object를 JsonArray 형태로 변환
 
