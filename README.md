@@ -8,14 +8,15 @@
 
 
 ## Technical Lead
-* Android Native(JAVA)  
-* Firebase (Authentication, Realtime Database)  
-* SQLite DB와 Firebase DB 상호 연동  
-* KakaoMap API를 이용한 맵서비스  
-* Kakao 로컬 검색 REST API(JSON)룰 이용한 내 주변 음식점 찾기  
-* 식품의약품안전처 영양정보 Open API를 통한 음식 영양정보 파싱(Xml)  
-* Recycler View 기반의 Custom ListView 구현  
-* JSON data를 이용한 질문 리스트 및 음식 정보 구현  
+* Firebase Auth를 활용한 구글 로그인 및 데이터 연동 기능 구현
+* JSON 데이터와 식품의약품안전처의 Open API를 통한 4가지 질문으로 구성된 음식추천 서비스 구현
+* 질문형 음식추천 서비스를 위해 질문 리스트 및 카테고리별로 나누어진 음식 정보를 JSON 형태로 저장  
+* 식품의약품안전처의 Open Api를 통한 추천 받은 음식의 영양 정보를 제공하는 기능과, 이를 DB에 저장할 수 있는 기능 구현  
+* Kakao Map API와 지도 구현 
+* Kakao 로컬 검색 API와 GPS를 활용하여 현재 위치를 기반으로 한 내 주변 음식점 찾기 서비스 구현
+* 지도에 표시된 음식점은 카테고리별 (음식점, 카페, 편의점) 조회할 수 있도록 토글 형식의 기능 구현  
+* 지도에 표시된 음식점 마커를 클릭하면 음식점 정보 페이지 조회와 전화를 걸 수 있도록 구현 
+* SQLite를 활용한 로컬 DB와 Firebase DB의 클라우드 DB를 상호 연동기능 (데이터 백업 기능) 구현
 
 
 ## Project Lead  
