@@ -2,19 +2,19 @@
 
 ## 🥘 ThreeMate(쓰리 메이트)  
 
-음식 메뉴 선정에 어려움을 겪는 1인 가구를 위해 만든 음식추천 모바일 앱이에요.  
+음식 메뉴 선정에 어려움을 겪는 1인 가구를 위해 만든 음식추천 모바일 앱.  
 스무고개 형식과 룰렛 형식의 음식추천, BMR, BMI, 일일 권장 칼로리 계산, 내 주변 음식점 찾기, 음식 사전 기능이 있습니다.
 
-## Screen Shots
-|Main|질문형 음식 추천|룰렛형 음식 추천|
+## 🖼️ Screen Shots
+| 😍 Main| ❓ 질문형 음식 추천| 🥫 룰렛형 음식 추천|
 |---|---|---|
 |<img src="https://user-images.githubusercontent.com/83625797/132082302-27c991d9-d95c-438e-b1dc-7d79f75b7631.jpg" width= "200">|<img src="https://user-images.githubusercontent.com/83625797/132082304-6fed3a86-242b-4131-9e39-a182b0805ab5.jpg" width = "200"> |<img src="https://user-images.githubusercontent.com/83625797/132082305-0e242505-9651-4866-b81a-34aca578076e.jpg" width = "200">|
 
-|음식 다이어리|주변 음식점 찾기|음식 사전|
+| 📙 음식 다이어리| 🗺️ 주변 음식점 찾기| 📑 음식 사전|
 |---|---|---|
 |<img src="https://user-images.githubusercontent.com/83625797/132082308-89496c21-cbea-4394-8393-31a0d42ca0ae.jpg" width = "200">|<img src="https://user-images.githubusercontent.com/83625797/132082309-cc46436e-40e4-46a8-824a-589b637fcc52.jpg" width = "200">|<img src="https://user-images.githubusercontent.com/83625797/132082310-c107de4f-fafc-4758-9335-a5bf524bff04.jpg" width = "200">|
 
-|로그인 화면|
+| 💻 로그인 화면|
 |---|
 |<img src="https://user-images.githubusercontent.com/83625797/132082301-10fe3515-a286-42cb-9898-9dbec11414f0.jpg" width = "200"> |
 
